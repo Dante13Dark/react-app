@@ -13,37 +13,23 @@ import { ReactComponent as V_arrow } from "../../common/icons/v_arrow.svg";
 import { ReactComponent as X_large } from "../../common/icons/x-large.svg";
 import { ReactComponent as X_medium } from "../../common/icons/x-medium.svg";
 
+const ICON_Map = {
+  abort: Abort,
+  bin: Bin,
+  checkmark: Checkmark,
+  dot: Dot,
+  filter: Filter,
+  locked: Locked,
+  moon: Moon,
+  pencil: Pencil,
+  refresh: Refresh,
+  search: Search,
+  sun: Sun,
+  v_arrow: V_arrow,
+  "x-large": X_large,
+  "x-medium": X_medium,
+};
 export const Icon = ({ name, ...props }) => {
-  switch (name) {
-    case "abort":
-      return <Abort {...props} />;
-    case "bin":
-      return <Bin {...props} />;
-    case "checkmark":
-      return <Checkmark {...props} />;
-    case "dot":
-      return <Dot {...props} />;
-    case "filter":
-      return <Filter {...props} />;
-    case "locked":
-      return <Locked {...props} />;
-    case "moon":
-      return <Moon {...props} />;
-    case "pencil":
-      return <Pencil {...props} />;
-    case "refresh":
-      return <Refresh {...props} />;
-    case "search":
-      return <Search {...props} />;
-    case "sun":
-      return <Sun {...props} />;
-    case "v_arrow":
-      return <V_arrow {...props} />;
-    case "x-large":
-      return <X_large {...props} />;
-    case "x-medium":
-      return <X_medium {...props} />;
-    default:
-      return null;
-  }
+  const Component = ICON_Map[name];
+  return Component ? <Component {...props} /> : null;
 };

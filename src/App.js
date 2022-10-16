@@ -10,16 +10,14 @@ import { PageHeaders } from "./shared/PageHeader/PageHeader";
 import { Dropdowns } from "./shared/Dropdown/Dropdown";
 
 const App = () => (
-  <div>
-    <div className="container">
-      <Buttons />
-      <Checkboxes />
-      <Radios />
-      <Inputs />
-      <Searchbars />
-      <PageHeaders />
-      <Dropdowns />
-    </div>
+  <div className="container">
+    <Buttons />
+    <Checkboxes />
+    <Radios />
+    <Inputs />
+    <Searchbars />
+    <PageHeaders />
+    <Dropdowns />
   </div>
 );
 
