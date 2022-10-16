@@ -1,25 +1,26 @@
-import logo from "./logo.svg";
 import "./App.css";
+import "./css/common.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import { Buttons } from "./shared/Button/Button";
+import { Checkboxes } from "./shared/Checkbox/Checkbox";
+import { Radios } from "./shared/Radio/Radio";
+import { Inputs } from "./shared/Input/Input";
+import { Searchbars } from "./shared/Searchbar/Searchbar";
+import { PageHeaders } from "./shared/PageHeader/PageHeader";
+import { Dropdowns } from "./shared/Dropdown/Dropdown";
+
+const App = () => (
+  <div>
+    <div className="container">
+      <Buttons />
+      <Checkboxes />
+      <Radios />
+      <Inputs />
+      <Searchbars />
+      <PageHeaders />
+      <Dropdowns />
     </div>
-  );
-}
+  </div>
+);
 
 export default App;

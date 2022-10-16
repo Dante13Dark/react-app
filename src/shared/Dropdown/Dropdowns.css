@@ -1,0 +1,111 @@
+.dropdowns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  gap: 3rem;
+  width: 42rem;
+  height: 32rem;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  width: 10rem;
+  box-sizing: border-box;
+  background-color: var(--color-white);
+  box-shadow: 0 0.5rem 1.5rem var(--dropdown-shadow),
+    0 0.25rem 0.5rem var(--dropdown-shadow),
+    0 0.125rem 0.125rem var(--dropdown-shadow);
+}
+
+.dropdown_section1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.dropdown_section2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.dropdown_section3 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.dropdown_section4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.dropdown_section5 {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.dropdown_with-list {
+  padding: 0.5rem 0;
+}
+
+.dropdown_with-input {
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.dropdown_with-dialog {
+  padding: 1rem;
+  align-items: center;
+}
+
+.dropdown__list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown__list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.dropdown__list-item .checkbox {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown__list-item .checkbox__icon {
+  top: unset;
+  left: 1rem;
+}
+
+.dropdown__list-item .radio {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown__title {
+  display: flex;
+  align-self: flex-start;
+}
+
+.dropdown__list-item:hover {
+  background-color: var(--color-light-blue);
+}
+
+.dropdown__list-item:active {
+  background-color: var(--color-blue);
+}
+
+.dropdown__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.button.dropdown__button {
+  justify-content: center;
+}

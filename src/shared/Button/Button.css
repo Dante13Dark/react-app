@@ -1,0 +1,122 @@
+.buttons {
+  width: 36rem;
+  height: 23.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 3rem;
+}
+
+.buttons__section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.button__icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button__icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.button__text {
+  padding: 0;
+}
+
+.button_color_primary {
+  color: var(--color-white);
+  background-color: var(--color-blue);
+}
+.button_color_primary .button__icon {
+  fill: var(--color-white);
+  stroke: var(--color-white);
+}
+
+.button_color_reverse {
+  color: var(--color-blue);
+  background-color: transparent;
+}
+.button_color_reverse .button__icon {
+  fill: var(--color-blue);
+  stroke: none;
+}
+
+.button_color_secondary {
+  color: var(--color-black);
+  background-color: transparent;
+}
+.button_color_secondary .button__icon {
+  fill: var(--color-black);
+  stroke: none;
+}
+
+.button_small {
+  height: 1.5rem;
+  padding: 0.25rem 0;
+  gap: 0.25rem;
+}
+
+.button_small .button__icon:first-child {
+  margin-left: 0.5rem;
+}
+
+.button_small .button__icon:only-child {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.button_small .button__text:first-child {
+  margin-left: 0.5rem;
+}
+
+.button_small .button__text:last-child {
+  margin-right: 0.5rem;
+}
+
+.button_medium {
+  height: 2rem;
+  padding: 0.5rem 0;
+  gap: 0.5rem;
+}
+
+.button_medium .button__icon:first-child {
+  margin-left: 1rem;
+}
+
+.button_medium .button__icon:only-child {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.button_medium .button__text:first-child {
+  margin-left: 1rem;
+}
+
+.button_medium .button__text:last-child {
+  margin-right: 1rem;
+}
+
+.button:hover:enabled {
+  box-shadow: 0 0 0 0.0625rem var(--color-dark-blue);
+}
+
+.button:active:enabled {
+  box-shadow: 0 0 0 0.0625rem var(--color-medium-blue);
+}

@@ -1,0 +1,25 @@
+.page-headers {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 49.125rem;
+  height: 13rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__text {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.header__button .button__icon {
+  opacity: 1;
+}
