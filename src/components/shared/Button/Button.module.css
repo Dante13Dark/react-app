@@ -14,7 +14,7 @@
   gap: 1rem;
 }
 
-.button {
+._ {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -25,98 +25,92 @@
   box-sizing: border-box;
 }
 
-.button__icon-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.button__icon {
+.icon {
   width: 1rem;
   height: 1rem;
 }
 
-.button__text {
+.text {
   padding: 0;
 }
 
-.button_color_primary {
+.primary {
   color: var(--color-white);
   background-color: var(--color-blue);
 }
-.button_color_primary .button__icon {
+.primary .icon {
   fill: var(--color-white);
   stroke: var(--color-white);
 }
 
-.button_color_reverse {
+.reverse {
   color: var(--color-blue);
   background-color: transparent;
 }
-.button_color_reverse .button__icon {
+.reverse .icon {
   fill: var(--color-blue);
   stroke: none;
 }
 
-.button_color_secondary {
+.secondary {
   color: var(--color-black);
   background-color: transparent;
 }
-.button_color_secondary .button__icon {
+.secondary .icon {
   fill: var(--color-black);
   stroke: none;
 }
 
-.button_small {
+.small {
   height: 1.5rem;
   padding: 0.25rem 0;
   gap: 0.25rem;
 }
 
-.button_small .button__icon:first-child {
+.small .icon:first-child {
   margin-left: 0.5rem;
 }
 
-.button_small .button__icon:only-child {
+.small .icon:only-child {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
 
-.button_small .button__text:first-child {
+.small .text:first-child {
   margin-left: 0.5rem;
 }
 
-.button_small .button__text:last-child {
+.small .text:last-child {
   margin-right: 0.5rem;
 }
 
-.button_medium {
+.medium {
   height: 2rem;
   padding: 0.5rem 0;
   gap: 0.5rem;
 }
 
-.button_medium .button__icon:first-child {
+.medium .icon:first-child {
   margin-left: 1rem;
 }
 
-.button_medium .button__icon:only-child {
+.medium .icon:only-child {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
 
-.button_medium .button__text:first-child {
+.medium .text:first-child {
   margin-left: 1rem;
 }
 
-.button_medium .button__text:last-child {
+.medium .text:last-child {
   margin-right: 1rem;
 }
 
-.button:hover:enabled {
+._:hover:enabled {
   box-shadow: 0 0 0 0.0625rem var(--color-dark-blue);
 }
 
-.button:active:enabled {
+._:active:enabled {
   box-shadow: 0 0 0 0.0625rem var(--color-medium-blue);
 }

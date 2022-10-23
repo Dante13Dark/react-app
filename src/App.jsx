@@ -1,5 +1,5 @@
-import "./App.css";
-import "./css/common.css";
+import styles from "./App.module.css";
+
 import {
   Buttons,
   Checkboxes,
@@ -8,10 +8,10 @@ import {
   Searchbars,
   PageHeaders,
   Dropdowns,
-} from "../src/shared";
+} from "./components/shared";
 
 const App = () => (
-  <div className="container">
+  <div className={styles.container}>
     <Buttons />
     <Checkboxes />
     <Radios />

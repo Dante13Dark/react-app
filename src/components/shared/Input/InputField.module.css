@@ -3,21 +3,21 @@
   flex-direction: column;
   gap: 3rem;
   width: 22rem;
-  height: 22.5rem;
+  height: fit-content;
 }
 
-.inputField {
+._ {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 0.5rem;
 }
 
-.inputField__label {
+.label {
   color: var(--color-black);
 }
 
-.inputField__area-container {
+.area_container {
   height: 2rem;
   padding: 0.25rem;
   display: flex;
@@ -32,11 +32,11 @@
   border-style: solid;
 }
 
-.inputField_empty .inputField__area-container {
+.default .area_container {
   border-color: var(--color-blue);
 }
 
-.inputField__area {
+.area {
   border: 0;
   outline: 0;
   padding: 0;
@@ -46,25 +46,25 @@
   background-color: transparent;
 }
 
-.inputField__area::placeholder {
+.area::placeholder {
   color: var(--color-light-blue);
 }
 
-.inputField_incorrect .inputField__area-container {
+.incorrect .area_container {
   border-color: var(--color-red);
 }
 
-.inputField__button-cross .button__icon {
+.cross_button .icon {
   opacity: 1;
   stroke: var(--color-light-blue);
 }
 
-.inputField_disabled .inputField__area-container {
+.disabled .area_container {
   border-color: var(--color-blue);
   background-color: var(--color-light-blue);
 }
 
-.inputField__button-lock .button__icon {
+.lock_button .icon {
   opacity: 1;
   fill: var(--color-black);
 }

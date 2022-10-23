@@ -1,4 +1,4 @@
-.page-headers {
+.page_headers {
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -6,20 +6,20 @@
   height: 13rem;
 }
 
-.header {
+._ {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.header__text {
+.text {
   font-style: normal;
   font-weight: 700;
   font-size: 26px;
   line-height: 32px;
 }
 
-.header__button .button__icon {
+.button .icon {
   opacity: 1;
 }

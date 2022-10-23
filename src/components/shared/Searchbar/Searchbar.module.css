@@ -6,7 +6,7 @@
   height: 12rem;
 }
 
-.searchbar {
+._ {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -21,10 +21,10 @@
   background-color: var(--color-white);
 }
 
-.searchbar_empty {
+.empty {
 }
 
-.searchbar__input {
+.input {
   border: 0;
   outline: 0;
   padding: 0;
@@ -34,21 +34,21 @@
   background-color: transparent;
 }
 
-.searchbar__input::placeholder {
+.input::placeholder {
   color: var(--color-light-blue);
 }
 
-.searchbar__icon {
+.icon {
   width: 1rem;
   height: 1rem;
   stroke: var(--color-blue);
   fill: none;
 }
 
-.searchbar_filled {
+.filled {
 }
 
-.searchbar__button .button__icon {
+.button .icon {
   opacity: 1;
   stroke: var(--color-light-blue);
   fill: none;

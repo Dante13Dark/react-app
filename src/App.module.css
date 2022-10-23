@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+:global(.dashed-wrapper) {
+  box-sizing: border-box;
+  border: 0.0625rem dashed var(--color-purple);
+  border-radius: 0.3125rem;
+  padding: 3rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
