@@ -80,7 +80,3 @@
 .area:checked + .text {
   color: var(--color-blue);
 }
-
-.item {
-  padding: 0.5rem 1rem;
-}

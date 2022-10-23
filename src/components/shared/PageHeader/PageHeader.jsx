@@ -32,7 +32,6 @@ export const PageHeaders = () => {
     <>
       <div className={cn(styles.page_headers, "dashed-wrapper")}>
         <PageHeader title={"Список заказов"}>{button}</PageHeader>
-
         <PageHeader title={"Список заказов"}>{button}</PageHeader>
       </div>
     </>

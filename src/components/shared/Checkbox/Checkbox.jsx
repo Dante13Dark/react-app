@@ -4,19 +4,35 @@ import cn from "classnames";
 
 const noop = () => {};
 
-export const Checkbox = ({ className, checked, onChange = noop, text }) => {
-  let checkboxClassNames = cn(styles._, {
-    [className]: !!className,
+export const Checkbox = ({
+  className,
+  checked,
+  onChange = noop,
+  onClick = noop,
+  text,
+  isTextOnly,
+  iconClassName,
+}) => {
+  const checkboxClassNames = cn(styles._, className);
+
+  const inputClassNames = cn(styles.area, {
+    [styles.hidden]: isTextOnly,
   });
+
+  const iconClassNames = cn(styles.icon, iconClassName);
+
   return (
     <label className={checkboxClassNames}>
       <input
-        className={styles.area}
+        className={inputClassNames}
         type="checkbox"
         checked={checked}
         onChange={onChange}
+        onClick={onClick}
       />
-      <Icon name={ICON_MAP.checkmark} className={styles.icon} />
+      {!isTextOnly && (
+        <Icon name={ICON_MAP.checkmark} className={iconClassNames} />
+      )}
       {text && <span className={styles.text}>{text}</span>}
     </label>
   );

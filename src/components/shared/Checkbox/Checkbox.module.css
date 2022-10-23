@@ -73,11 +73,10 @@
   color: var(--color-blue);
 }
 
-.item {
-  padding: 0.5rem 1rem;
+.hidden {
+  display: none;
 }
 
-.item .icon {
-  top: unset;
-  left: 1rem;
+.hidden + .text + .icon {
+  display: none;
 }

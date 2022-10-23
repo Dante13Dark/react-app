@@ -3,6 +3,7 @@ import { ICON_MAP } from "../Icon/Icon";
 import cn from "classnames";
 import { Button, BUTTON_SIZE, BUTTON_STYLE } from "../Button/Button";
 
+const noop = () => {};
 export const INPUT_STYLE = {
   default: styles.default,
   incorrect: styles.incorrect,
@@ -16,6 +17,8 @@ export const Input = ({
   placeholder,
   label,
   style = INPUT_STYLE.default,
+  prefix,
+  ...props
 }) => {
   const inputStyleNames = cn(styles._, {
     [styles.default]: style === INPUT_STYLE.default,
@@ -30,12 +33,15 @@ export const Input = ({
         {label}
       </label>
       <div className={styles.area_container}>
+        {prefix && <span>{prefix}</span>}
         <input
           className={styles.area}
           id={id}
           value={value}
           placeholder={placeholder}
           disabled={style === INPUT_STYLE.disabled}
+          onChange={noop}
+          {...props}
         />
         {style === INPUT_STYLE.incorrect && (
           <Button

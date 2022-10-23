@@ -21,6 +21,7 @@ export const Button = ({
   iconClassName,
   title,
   disabled,
+  onClick,
 }) => {
   const buttonClasses = cn(styles._, {
     [styles.small]: size === BUTTON_SIZE.small,
@@ -32,7 +33,7 @@ export const Button = ({
   });
 
   return (
-    <button className={buttonClasses} disabled={disabled}>
+    <button className={buttonClasses} disabled={disabled} onClick={onClick}>
       {icon && (
         <Icon
           name={icon}

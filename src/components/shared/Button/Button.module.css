@@ -49,7 +49,7 @@
 }
 .reverse .icon {
   fill: var(--color-blue);
-  stroke: none;
+  stroke: var(--color-blue);
 }
 
 .secondary {
@@ -58,7 +58,7 @@
 }
 .secondary .icon {
   fill: var(--color-black);
-  stroke: none;
+  stroke: var(--color-black);
 }
 
 .small {

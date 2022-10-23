@@ -1,0 +1,48 @@
+._ {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2rem;
+}
+
+.mainBlock {
+  display: inherit;
+  justify-content: space-between;
+}
+
+.leftBlock {
+  display: inherit;
+  flex-direction: row;
+}
+
+.leftBlock > * {
+  margin-right: 1rem;
+}
+
+.leftBlock > :last-child {
+  margin-right: 0;
+}
+
+.searchbarWrapper {
+  width: 20rem;
+}
+
+.extendedBlock {
+  display: flex;
+  align-items: flex-end;
+  box-sizing: border-box;
+  height: 5.5rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-white-blue);
+}
+
+.dateFilter,
+.stateFilter,
+.amountFilter {
+  margin-right: 1rem;
+}
+
+.applyFilterButton {
+  padding: 0.5rem 0.5625rem;
+}

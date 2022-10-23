@@ -1,25 +1,10 @@
-import styles from "./App.module.css";
-
-import {
-  Buttons,
-  Checkboxes,
-  Radios,
-  Inputs,
-  Searchbars,
-  PageHeaders,
-  Dropdowns,
-} from "./components/shared";
+import ThemeProvider from "./components/shared/ThemeContext/ThemeContext";
+import { OrdersPage } from "./components/pages/OrdersPage/OrdersPage";
 
 const App = () => (
-  <div className={styles.container}>
-    <Buttons />
-    <Checkboxes />
-    <Radios />
-    <Inputs />
-    <Searchbars />
-    <PageHeaders />
-    <Dropdowns />
-  </div>
+  <ThemeProvider>
+    <OrdersPage />
+  </ThemeProvider>
 );
 
 export default App;
