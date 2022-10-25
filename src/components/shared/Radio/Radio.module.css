@@ -25,8 +25,8 @@
   width: 1rem;
   height: 1rem;
   margin: 0;
-  background-color: var(--color-white);
-  border: 0.0625rem solid var(--color-light-blue);
+  background-color: var(--text-reverse);
+  border: 0.0625rem solid var(--text-secondary);
   border-radius: 0.9375rem;
   box-sizing: border-box;
 }
@@ -37,7 +37,7 @@
   left: 0;
   top: 0;
   width: 1rem;
-  fill: var(--color-white);
+  fill: var(--text-reverse);
   transition: opacity 0.25s ease-in;
 }
 
@@ -47,7 +47,7 @@
   align-items: center;
   line-height: inherit;
   font-size: inherit;
-  color: var(--color-black);
+  color: var(--text-primary);
   flex-grow: 1;
 }
 
@@ -60,12 +60,12 @@
 }
 
 .area:active {
-  background-color: var(--color-light-blue);
+  background-color: var(--text-secondary);
 }
 
 .area:checked {
-  background-color: var(--color-blue);
-  border-color: var(--color-blue);
+  background-color: var(--style-primary);
+  border-color: var(--style-primary);
   border-radius: 0.9375rem;
 }
 
@@ -78,5 +78,5 @@
 }
 
 .area:checked + .text {
-  color: var(--color-blue);
+  color: var(--style-primary);
 }

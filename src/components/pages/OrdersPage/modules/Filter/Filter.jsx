@@ -47,7 +47,6 @@ export const Filter = ({
             <Button
               size={BUTTON_SIZE.medium}
               style={BUTTON_STYLE.reverse}
-              icon={ICON_MAP.filter}
               title="Сбросить фильтры"
               id="filterResetButton"
               onClick={onResetButtonClick}

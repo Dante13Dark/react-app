@@ -8,6 +8,7 @@ export const INPUT_STYLE = {
   default: styles.default,
   incorrect: styles.incorrect,
   disabled: styles.disabled,
+  selectField: styles.selectField,
 };
 
 export const Input = ({
@@ -20,12 +21,7 @@ export const Input = ({
   prefix,
   ...props
 }) => {
-  const inputStyleNames = cn(styles._, {
-    [styles.default]: style === INPUT_STYLE.default,
-    [styles.disabled]: style === INPUT_STYLE.disabled,
-    [styles.incorrect]: style === INPUT_STYLE.incorrect,
-    [className]: !!className,
-  });
+  const inputStyleNames = cn(styles._, className, style);
 
   return (
     <div className={inputStyleNames}>
@@ -33,7 +29,7 @@ export const Input = ({
         {label}
       </label>
       <div className={styles.area_container}>
-        {prefix && <span>{prefix}</span>}
+        {prefix && <span className={styles.prefix}>{prefix}</span>}
         <input
           className={styles.area}
           id={id}
@@ -56,6 +52,16 @@ export const Input = ({
           <Button
             className={styles.lock_button}
             icon={ICON_MAP.locked}
+            iconClassName={styles.icon}
+            style={BUTTON_STYLE.reverse}
+            size={BUTTON_SIZE.small}
+            disabled
+          />
+        )}
+        {style === INPUT_STYLE.selectField && (
+          <Button
+            className={styles.vArrow_button}
+            icon={ICON_MAP.vArrow}
             iconClassName={styles.icon}
             style={BUTTON_STYLE.reverse}
             size={BUTTON_SIZE.small}

@@ -39,7 +39,7 @@
 
 :global(.dashed-wrapper) {
   box-sizing: border-box;
-  border: 0.0625rem dashed var(--color-purple);
+  border: 0.0625rem dashed var(--dashed-border-style);
   border-radius: 0.3125rem;
   padding: 3rem;
 }

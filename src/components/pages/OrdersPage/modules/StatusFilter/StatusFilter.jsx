@@ -1,8 +1,9 @@
 import cn from "classnames";
 import { useMemo, useState } from "react";
 import styles from "./StatusFilter.module.css";
-import { Input } from "../../../../shared/Input/Input";
+import { Input, INPUT_STYLE } from "../../../../shared/Input/Input";
 import { DropdownListItem } from "../../../../shared/DropdownListItem/DropdownListItem";
+import { Dropdown, DROPDOWN_STYLE } from "../../../../shared/Dropdown/Dropdown";
 
 const STATUS_MAP = {
   any: "Любой",
@@ -21,7 +22,7 @@ export const StatusFilter = ({ className }) => {
   };
 
   const [statusValues, setStatusValues] = useState({
-    new: false,
+    new: true,
     calculation: false,
     accepted: false,
     paused: false,
@@ -44,63 +45,72 @@ export const StatusFilter = ({ className }) => {
 
   const classNames = cn(styles._, className);
 
-  return (
+  const input = (
     <div className={classNames}>
       <Input
+        style={INPUT_STYLE.selectField}
         label="Статус заказа"
         placeholder={STATUS_MAP.any}
         onClick={handleToggleVisibility}
         value={checkedStatuses}
         readOnly={true}
       />
-
-      {isVisibleDropdown && (
-        <div className={styles.wrapper}>
-          <DropdownListItem
-            text={"Новый"}
-            name={"dropdown-selector"}
-            value={"new"}
-            onChange={() => handleChangeStatusValues("new")}
-            checked={statusValues["new"]}
-          />
-
-          <DropdownListItem
-            text={"Расчет"}
-            name={"dropdown-selector"}
-            value={"calculation"}
-            onClick={() => handleChangeStatusValues("calculation")}
-            checked={statusValues["calculation"]}
-          />
-          <DropdownListItem
-            text={"Подтвержден"}
-            name={"dropdown-selector"}
-            value={"accepted"}
-            onClick={() => handleChangeStatusValues("accepted")}
-            checked={statusValues["accepted"]}
-          />
-          <DropdownListItem
-            text={"Отложен"}
-            name={"dropdown-selector"}
-            value={"paused"}
-            onClick={() => handleChangeStatusValues("paused")}
-            checked={statusValues["paused"]}
-          />
-          <DropdownListItem
-            text={"Выполнен"}
-            name={"dropdown-selector"}
-            value={"done"}
-            onClick={() => handleChangeStatusValues("done")}
-            checked={statusValues["done"]}
-          />
-          <DropdownListItem
-            text={"Отменен"}
-            name={"dropdown-selector"}
-            value={"cancelled"}
-            onClick={() => handleChangeStatusValues("cancelled")}
-            checked={statusValues["cancelled"]}
-          />
-        </div>
-      )}
     </div>
+  );
+
+  const overlay = (
+    <>
+      <DropdownListItem
+        text={"Новый"}
+        name={"dropdown-selector"}
+        value={"new"}
+        onChange={() => handleChangeStatusValues("new")}
+        checked={statusValues["new"]}
+      />
+
+      <DropdownListItem
+        text={"Расчет"}
+        name={"dropdown-selector"}
+        value={"calculation"}
+        onClick={() => handleChangeStatusValues("calculation")}
+        checked={statusValues["calculation"]}
+      />
+      <DropdownListItem
+        text={"Подтвержден"}
+        name={"dropdown-selector"}
+        value={"accepted"}
+        onClick={() => handleChangeStatusValues("accepted")}
+        checked={statusValues["accepted"]}
+      />
+      <DropdownListItem
+        text={"Отложен"}
+        name={"dropdown-selector"}
+        value={"paused"}
+        onClick={() => handleChangeStatusValues("paused")}
+        checked={statusValues["paused"]}
+      />
+      <DropdownListItem
+        text={"Выполнен"}
+        name={"dropdown-selector"}
+        value={"done"}
+        onClick={() => handleChangeStatusValues("done")}
+        checked={statusValues["done"]}
+      />
+      <DropdownListItem
+        text={"Отменен"}
+        name={"dropdown-selector"}
+        value={"cancelled"}
+        onClick={() => handleChangeStatusValues("cancelled")}
+        checked={statusValues["cancelled"]}
+      />
+    </>
+  );
+  return (
+    <Dropdown
+      style={DROPDOWN_STYLE.list}
+      trigger={input}
+      overlay={overlay}
+      className={className}
+    />
   );
 };

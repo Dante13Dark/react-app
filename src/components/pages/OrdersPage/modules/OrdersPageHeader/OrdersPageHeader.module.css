@@ -1,0 +1,9 @@
+.title {
+  display: flex;
+  align-self: flex-start;
+  color: var(--text-primary);
+}
+
+.button .icon {
+  opacity: 1;
+}

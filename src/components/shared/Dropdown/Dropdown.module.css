@@ -32,16 +32,25 @@
   grid-row: 2;
 }
 
+.wrapper {
+  position: relative;
+}
+
 ._ {
   display: flex;
   flex-direction: column;
   border-radius: 0.5rem;
   width: 10rem;
   box-sizing: border-box;
-  background-color: var(--color-white);
-  box-shadow: 0 0.5rem 1.5rem var(--dropdown-shadow),
-    0 0.25rem 0.5rem var(--dropdown-shadow),
-    0 0.125rem 0.125rem var(--dropdown-shadow);
+  background-color: var(--text-reverse);
+  box-shadow: 0 0.5rem 1.5rem var(--shadow), 0 0.25rem 0.5rem var(--shadow),
+    0 0.125rem 0.125rem var(--shadow);
+}
+
+.overlay {
+  position: absolute;
+  top: 3.75rem;
+  right: 0;
 }
 
 .withList {
@@ -79,11 +88,11 @@
 }
 
 .item:hover {
-  background-color: var(--color-light-blue);
+  background-color: var(--text-secondary);
 }
 
 .item:active {
-  background-color: var(--color-blue);
+  background-color: var(--style-primary);
 }
 
 .content {

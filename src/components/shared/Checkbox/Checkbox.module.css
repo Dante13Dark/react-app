@@ -27,8 +27,8 @@
   width: 1rem;
   height: 1rem;
   margin: 0;
-  background-color: var(--color-white);
-  border: 0.0625rem solid var(--color-light-blue);
+  background-color: var(--text-reverse);
+  border: 0.0625rem solid var(--text-secondary);
   border-radius: 0.125rem;
   box-sizing: border-box;
 }
@@ -40,7 +40,7 @@
   top: 0;
   width: 1rem;
   height: 1rem;
-  fill: var(--color-white);
+  fill: var(--text-reverse);
   transition: opacity 0.25s ease-in;
 }
 
@@ -49,16 +49,16 @@
   justify-content: flex-start;
   align-items: center;
   flex-grow: 1;
-  color: var(--color-black);
+  color: var(--text-primary);
 }
 
 .area:active {
-  background-color: var(--color-light-blue);
+  background-color: var(--text-secondary);
 }
 
 .area:checked {
-  background-color: var(--color-blue);
-  border-color: var(--color-blue);
+  background-color: var(--style-primary);
+  border-color: var(--style-primary);
 }
 
 .area:checked + .text + .icon {
@@ -70,7 +70,7 @@
 }
 
 .area:checked + .text {
-  color: var(--color-blue);
+  color: var(--style-primary);
 }
 
 .hidden {

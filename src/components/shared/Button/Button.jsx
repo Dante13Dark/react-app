@@ -3,14 +3,14 @@ import cn from "classnames";
 import { Icon, ICON_MAP } from "../Icon/Icon";
 
 export const BUTTON_SIZE = {
-  medium: "medium",
-  small: "small",
+  medium: styles.medium,
+  small: styles.small,
 };
 
 export const BUTTON_STYLE = {
-  primary: "primary",
-  secondary: "secondary",
-  reverse: "reverse",
+  primary: styles.primary,
+  secondary: styles.secondary,
+  reverse: styles.reverse,
 };
 
 export const Button = ({
@@ -23,23 +23,11 @@ export const Button = ({
   disabled,
   onClick,
 }) => {
-  const buttonClasses = cn(styles._, {
-    [styles.small]: size === BUTTON_SIZE.small,
-    [styles.medium]: size === BUTTON_SIZE.medium,
-    [styles.primary]: style === BUTTON_STYLE.primary,
-    [styles.secondary]: style === BUTTON_STYLE.secondary,
-    [styles.reverse]: style === BUTTON_STYLE.reverse,
-    [className]: !!className,
-  });
+  const buttonClasses = cn(styles._, className, size, style);
 
   return (
     <button className={buttonClasses} disabled={disabled} onClick={onClick}>
-      {icon && (
-        <Icon
-          name={icon}
-          className={cn(styles.icon, { [iconClassName]: !!iconClassName })}
-        />
-      )}
+      {icon && <Icon name={icon} className={cn(styles.icon, iconClassName)} />}
       {title && <div className={styles.text}>{title}</div>}
     </button>
   );

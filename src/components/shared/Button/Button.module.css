@@ -1,6 +1,6 @@
 .buttons {
   width: 36rem;
-  /*height: 23.5rem;*/
+  height: fit-content;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 3rem;
@@ -35,30 +35,30 @@
 }
 
 .primary {
-  color: var(--color-white);
-  background-color: var(--color-blue);
+  color: var(--text-reverse);
+  background-color: var(--style-primary);
 }
 .primary .icon {
-  fill: var(--color-white);
-  stroke: var(--color-white);
+  fill: var(--text-reverse);
+  stroke: var(--text-reverse);
 }
 
 .reverse {
-  color: var(--color-blue);
+  color: var(--style-primary);
   background-color: transparent;
 }
 .reverse .icon {
-  fill: var(--color-blue);
-  stroke: var(--color-blue);
+  fill: var(--style-primary);
+  stroke: var(--style-primary);
 }
 
 .secondary {
-  color: var(--color-black);
+  color: var(--text-primary);
   background-color: transparent;
 }
 .secondary .icon {
-  fill: var(--color-black);
-  stroke: var(--color-black);
+  fill: var(--text-primary);
+  stroke: var(--text-primary);
 }
 
 .small {
@@ -108,9 +108,13 @@
 }
 
 ._:hover:enabled {
-  box-shadow: 0 0 0 0.0625rem var(--color-dark-blue);
+  box-shadow: 0 0 0 0.0625rem var(--button-hover-shadow);
 }
 
 ._:active:enabled {
-  box-shadow: 0 0 0 0.0625rem var(--color-medium-blue);
+  box-shadow: 0 0 0 0.0625rem var(--button-active-shadow);
+}
+
+._:hover:disabled {
+  cursor: auto;
 }

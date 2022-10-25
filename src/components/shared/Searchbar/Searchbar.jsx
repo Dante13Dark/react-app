@@ -10,9 +10,7 @@ export const Searchbar = ({
   value,
   onChange = noop,
 }) => {
-  const searchbarClassNames = cn(styles._, {
-    [className]: !!className,
-  });
+  const searchbarClassNames = cn(styles._, className);
   return (
     <div className={searchbarClassNames}>
       <Icon name={ICON_MAP.search} className={styles.icon} />

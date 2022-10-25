@@ -5,11 +5,7 @@ import { Button, BUTTON_SIZE, BUTTON_STYLE } from "../Button/Button";
 
 export const PageHeader = ({ className, title, children }) => {
   return (
-    <div
-      className={cn(styles._, {
-        [className]: !!className,
-      })}
-    >
+    <div className={cn(styles._, className)}>
       <span className={styles.text}>{title}</span>
       {children}
     </div>
