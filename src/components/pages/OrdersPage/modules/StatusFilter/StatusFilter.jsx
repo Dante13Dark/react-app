@@ -3,10 +3,10 @@ import { useMemo, useState } from "react";
 import styles from "./StatusFilter.module.css";
 import { Input, INPUT_STYLE } from "../../../../shared/Input/Input";
 import { DropdownListItem } from "../../../../shared/DropdownListItem/DropdownListItem";
-import { Dropdown, DROPDOWN_STYLE } from "../../../../shared/Dropdown/Dropdown";
+import { Dropdown } from "../../../../shared/Dropdown/Dropdown";
+import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
 
 const STATUS_MAP = {
-  any: "Любой",
   new: "Новый",
   calculation: "Расчет",
   accepted: "Подтвержден",
@@ -21,96 +21,54 @@ export const StatusFilter = ({ className }) => {
     setIsVisibleDropdown(!isVisibleDropdown);
   };
 
-  const [statusValues, setStatusValues] = useState({
-    new: true,
-    calculation: false,
-    accepted: false,
-    paused: false,
-    done: true,
-    cancelled: false,
-  });
+  const [statusValues, setStatusValues] = useState({});
 
   const handleChangeStatusValues = (el) => {
-    console.log(el);
     setStatusValues({ ...statusValues, [el]: !statusValues[el] });
-    console.log(statusValues);
   };
 
   const checkedStatuses = useMemo(() => {
     const statuses = Object.keys(statusValues)
       .filter((status) => statusValues[status])
       .map((status) => STATUS_MAP[status]);
-    return statuses.length ? statuses.join(", ") : STATUS_MAP.any;
+    if (
+      !statuses.length ||
+      statuses.length === Object.keys(statusValues).length
+    ) {
+      return "Любой";
+    } else {
+      return statuses.join(", ");
+    }
   }, [statusValues]);
 
   const classNames = cn(styles._, className);
-
+  const postfixIcon = <Icon name={ICON_MAP.vArrow} className={styles.icon} />;
   const input = (
     <div className={classNames}>
       <Input
-        style={INPUT_STYLE.selectField}
+        inputStyle={INPUT_STYLE.default}
         label="Статус заказа"
-        placeholder={STATUS_MAP.any}
+        placeholder={"Любой"}
         onClick={handleToggleVisibility}
         value={checkedStatuses}
         readOnly={true}
+        postfix={postfixIcon}
       />
     </div>
   );
 
   const overlay = (
-    <>
-      <DropdownListItem
-        text={"Новый"}
-        name={"dropdown-selector"}
-        value={"new"}
-        onChange={() => handleChangeStatusValues("new")}
-        checked={statusValues["new"]}
-      />
-
-      <DropdownListItem
-        text={"Расчет"}
-        name={"dropdown-selector"}
-        value={"calculation"}
-        onClick={() => handleChangeStatusValues("calculation")}
-        checked={statusValues["calculation"]}
-      />
-      <DropdownListItem
-        text={"Подтвержден"}
-        name={"dropdown-selector"}
-        value={"accepted"}
-        onClick={() => handleChangeStatusValues("accepted")}
-        checked={statusValues["accepted"]}
-      />
-      <DropdownListItem
-        text={"Отложен"}
-        name={"dropdown-selector"}
-        value={"paused"}
-        onClick={() => handleChangeStatusValues("paused")}
-        checked={statusValues["paused"]}
-      />
-      <DropdownListItem
-        text={"Выполнен"}
-        name={"dropdown-selector"}
-        value={"done"}
-        onClick={() => handleChangeStatusValues("done")}
-        checked={statusValues["done"]}
-      />
-      <DropdownListItem
-        text={"Отменен"}
-        name={"dropdown-selector"}
-        value={"cancelled"}
-        onClick={() => handleChangeStatusValues("cancelled")}
-        checked={statusValues["cancelled"]}
-      />
-    </>
+    <div className={styles.list}>
+      {Object.keys(STATUS_MAP).map((key) => (
+        <DropdownListItem
+          key={key}
+          text={STATUS_MAP[key]}
+          value={key}
+          onClick={() => handleChangeStatusValues(key)}
+          checked={statusValues[key]}
+        />
+      ))}
+    </div>
   );
-  return (
-    <Dropdown
-      style={DROPDOWN_STYLE.list}
-      trigger={input}
-      overlay={overlay}
-      className={className}
-    />
-  );
+  return <Dropdown trigger={input} overlay={overlay} className={className} />;
 };

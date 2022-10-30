@@ -36,13 +36,3 @@ export const Radio = ({
     </label>
   );
 };
-
-export const Radios = () => (
-  <>
-    <div className={cn(styles.radios, "dashed-wrapper")}>
-      <Radio name="radio" value="1" text="Text1" />
-      <Radio name="radio" value="2" text="Text2" />
-      <Radio name="radio" value="3" text="Text3" />
-    </div>
-  </>
-);

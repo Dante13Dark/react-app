@@ -37,12 +37,3 @@ export const Checkbox = ({
     </label>
   );
 };
-
-export const Checkboxes = () => (
-  <>
-    <div className={cn(styles.checkboxes, "dashed-wrapper")}>
-      <Checkbox checked />
-      <Checkbox />
-    </div>
-  </>
-);

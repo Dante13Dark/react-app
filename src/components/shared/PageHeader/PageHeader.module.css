@@ -1,11 +1,3 @@
-.page_headers {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  width: 49.125rem;
-  height: 13rem;
-}
-
 ._ {
   display: flex;
   flex-direction: row;

@@ -4,7 +4,7 @@ import {
   BUTTON_SIZE,
   BUTTON_STYLE,
 } from "../../../../shared/Button/Button";
-import { ICON_MAP } from "../../../../shared/Icon/Icon";
+import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
 import { Searchbar } from "../../../../shared/Searchbar/Searchbar";
 import styles from "./Filter.module.css";
 import { DateFilter } from "../DateFilter/DateFilter";
@@ -38,7 +38,7 @@ export const Filter = ({
           <Button
             icon={ICON_MAP.filter}
             size={BUTTON_SIZE.medium}
-            style={isActive ? BUTTON_STYLE.primary : BUTTON_STYLE.reverse}
+            buttonStyle={isActive ? BUTTON_STYLE.primary : BUTTON_STYLE.reverse}
             title="Фильтры"
             onClick={() => onShowFilterButtonClick()}
           />
@@ -46,19 +46,17 @@ export const Filter = ({
           {isActive && (
             <Button
               size={BUTTON_SIZE.medium}
-              style={BUTTON_STYLE.reverse}
+              buttonStyle={BUTTON_STYLE.reverse}
               title="Сбросить фильтры"
               id="filterResetButton"
               onClick={onResetButtonClick}
             />
           )}
         </div>
-        <Button
-          icon={ICON_MAP.refresh}
-          size={BUTTON_SIZE.medium}
-          style={BUTTON_STYLE.reverse}
-          title="Загрузка"
-        />
+        <div className={styles.loading}>
+          <Icon name={ICON_MAP.refresh} className={styles.icon} />
+          <span className={styles.text}>Загрузка</span>
+        </div>
       </div>
 
       {isActive && (
@@ -68,7 +66,7 @@ export const Filter = ({
           <AmountFilter className={styles.amountFilter} />
           <Button
             size={BUTTON_SIZE.medium}
-            style={BUTTON_STYLE.reverse}
+            buttonStyle={BUTTON_STYLE.reverse}
             title="Применить"
             className={styles.applyFilterButton}
           />

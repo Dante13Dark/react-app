@@ -7,7 +7,7 @@ import {
   BUTTON_STYLE,
 } from "../../../../shared/Button/Button";
 import { ICON_MAP } from "../../../../shared/Icon/Icon";
-import { Dropdown, DROPDOWN_STYLE } from "../../../../shared/Dropdown/Dropdown";
+import { Dropdown } from "../../../../shared/Dropdown/Dropdown";
 
 import styles from "./OrdersPageHeader.module.css";
 import {
@@ -15,25 +15,25 @@ import {
   isDarkTheme,
   ThemeContext,
 } from "../../../../shared/ThemeContext/ThemeContext";
+import cn from "classnames";
 
 export const OrdersPageHeader = ({ title, className }) => {
   const [isVisibleDropdown, setIsVisibleDropdown] = useState(false);
   const handleToggleVisibility = () => {
-    console.log("TAP");
     setIsVisibleDropdown(!isVisibleDropdown);
   };
 
   const { theme, toggleTheme } = useContext(ThemeContext);
   const handleThemeSelection = (currentTheme) => {
     toggleTheme(currentTheme);
-    console.log(document.documentElement.dataset.theme);
+    handleToggleVisibility();
   };
 
   const button = (
     <Button
       className={styles.button}
       size={BUTTON_SIZE.medium}
-      style={BUTTON_STYLE.reverse}
+      buttonStyle={BUTTON_STYLE.reverse}
       iconClassName={styles.icon}
       title={isDarkTheme(theme) ? "Темная тема" : "Светлая тема"}
       icon={isDarkTheme(theme) ? ICON_MAP.moon : ICON_MAP.sun}
@@ -42,32 +42,34 @@ export const OrdersPageHeader = ({ title, className }) => {
   );
 
   const overlay = (
-    <>
+    <div className={cn(styles.dialog)}>
       <span className={styles.title}>Выберите тему</span>
       <Button
         size={BUTTON_SIZE.small}
-        style={BUTTON_STYLE.reverse}
+        buttonStyle={
+          isDarkTheme(theme) ? BUTTON_STYLE.reverse : BUTTON_STYLE.primary
+        }
         title={"Светлая"}
         icon={ICON_MAP.sun}
         onClick={() => handleThemeSelection(COLOR_THEMES.light)}
+        className={styles.dialog_Button}
       />
       <Button
         size={BUTTON_SIZE.small}
-        style={BUTTON_STYLE.primary}
+        buttonStyle={
+          isDarkTheme(theme) ? BUTTON_STYLE.primary : BUTTON_STYLE.reverse
+        }
         title={"Темная"}
         icon={ICON_MAP.moon}
         onClick={() => handleThemeSelection(COLOR_THEMES.dark)}
+        className={styles.dialog_Button}
       />
-    </>
+    </div>
   );
 
   return (
     <PageHeader title={title} className={className}>
-      <Dropdown
-        style={DROPDOWN_STYLE.dialog}
-        trigger={button}
-        overlay={overlay}
-      />
+      <Dropdown trigger={button} overlay={overlay} />
     </PageHeader>
   );
 };

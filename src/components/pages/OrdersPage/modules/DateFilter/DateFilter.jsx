@@ -6,8 +6,13 @@ export const DateFilter = ({ className }) => {
   const componentStyles = cn(styles._, className);
   return (
     <div className={componentStyles}>
-      <Input label="Дата оформления" placeholder="dd.mm.yyyy" prefix="c" />
-      <Input placeholder="dd.mm.yyyy" prefix="по" />
+      <Input
+        label="Дата оформления"
+        placeholder="dd.mm.yyyy"
+        prefix="c"
+        id="DateFilter"
+      />
+      <Input placeholder="dd.mm.yyyy" prefix="по" id="DateFilter" />
     </div>
   );
 };

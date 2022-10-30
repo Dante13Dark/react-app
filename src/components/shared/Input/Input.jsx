@@ -1,5 +1,5 @@
 import styles from "./InputField.module.css";
-import { ICON_MAP } from "../Icon/Icon";
+import { Icon, ICON_MAP } from "../Icon/Icon";
 import cn from "classnames";
 import { Button, BUTTON_SIZE, BUTTON_STYLE } from "../Button/Button";
 
@@ -8,7 +8,6 @@ export const INPUT_STYLE = {
   default: styles.default,
   incorrect: styles.incorrect,
   disabled: styles.disabled,
-  selectField: styles.selectField,
 };
 
 export const Input = ({
@@ -17,17 +16,20 @@ export const Input = ({
   value,
   placeholder,
   label,
-  style = INPUT_STYLE.default,
+  inputStyle = INPUT_STYLE.default,
   prefix,
+  postfix,
   ...props
 }) => {
-  const inputStyleNames = cn(styles._, className, style);
+  const inputStyleNames = cn(styles._, className, inputStyle);
 
   return (
     <div className={inputStyleNames}>
-      <label className={styles.label} htmlFor={id}>
-        {label}
-      </label>
+      {label && (
+        <label className={styles.label} htmlFor={id}>
+          {label}
+        </label>
+      )}
       <div className={styles.area_container}>
         {prefix && <span className={styles.prefix}>{prefix}</span>}
         <input
@@ -35,66 +37,24 @@ export const Input = ({
           id={id}
           value={value}
           placeholder={placeholder}
-          disabled={style === INPUT_STYLE.disabled}
+          disabled={inputStyle === INPUT_STYLE.disabled}
           onChange={noop}
           {...props}
         />
-        {style === INPUT_STYLE.incorrect && (
+        {postfix && postfix}
+        {inputStyle === INPUT_STYLE.incorrect && (
           <Button
             className={styles.cross_button}
             icon={ICON_MAP.xMedium}
             iconClassName={styles.icon}
-            style={BUTTON_STYLE.reverse}
+            buttonStyle={BUTTON_STYLE.reverse}
             size={BUTTON_SIZE.small}
           />
         )}
-        {style === INPUT_STYLE.disabled && (
-          <Button
-            className={styles.lock_button}
-            icon={ICON_MAP.locked}
-            iconClassName={styles.icon}
-            style={BUTTON_STYLE.reverse}
-            size={BUTTON_SIZE.small}
-            disabled
-          />
-        )}
-        {style === INPUT_STYLE.selectField && (
-          <Button
-            className={styles.vArrow_button}
-            icon={ICON_MAP.vArrow}
-            iconClassName={styles.icon}
-            style={BUTTON_STYLE.reverse}
-            size={BUTTON_SIZE.small}
-            disabled
-          />
+        {inputStyle === INPUT_STYLE.disabled && (
+          <Icon name={ICON_MAP.locked} className={styles.lock_icon} />
         )}
       </div>
     </div>
   );
 };
-
-export const Inputs = () => (
-  <>
-    <div className={cn(styles.inputs, "dashed-wrapper")}>
-      <Input
-        style={INPUT_STYLE.default}
-        id={"inputField_empty1"}
-        label={"Дата и время заказа"}
-        placeholder={"Введите"}
-      />
-      <Input
-        style={INPUT_STYLE.incorrect}
-        id={"inputField_incorrect1"}
-        label={"Дата и время заказа"}
-        placeholder={"Введите"}
-      />
-      <Input
-        style={INPUT_STYLE.disabled}
-        id={"inputField_disabled1"}
-        label={"Дата и время заказа"}
-        placeholder={"Введите"}
-        value={"12.12.2012"}
-      />
-    </div>
-  </>
-);
