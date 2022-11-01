@@ -39,18 +39,20 @@ export const Filter = ({
             icon={ICON_MAP.filter}
             size={BUTTON_SIZE.medium}
             buttonStyle={isActive ? BUTTON_STYLE.primary : BUTTON_STYLE.reverse}
-            title="Фильтры"
             onClick={() => onShowFilterButtonClick()}
-          />
+          >
+            Фильтры
+          </Button>
 
           {isActive && (
             <Button
               size={BUTTON_SIZE.medium}
               buttonStyle={BUTTON_STYLE.reverse}
-              title="Сбросить фильтры"
               id="filterResetButton"
               onClick={onResetButtonClick}
-            />
+            >
+              Сбросить фильтры
+            </Button>
           )}
         </div>
         <div className={styles.loading}>
@@ -67,9 +69,10 @@ export const Filter = ({
           <Button
             size={BUTTON_SIZE.medium}
             buttonStyle={BUTTON_STYLE.reverse}
-            title="Применить"
             className={styles.applyFilterButton}
-          />
+          >
+            Применить
+          </Button>
         </div>
       )}
     </div>

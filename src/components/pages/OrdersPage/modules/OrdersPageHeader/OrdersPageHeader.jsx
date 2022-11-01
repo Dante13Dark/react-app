@@ -35,10 +35,11 @@ export const OrdersPageHeader = ({ title, className }) => {
       size={BUTTON_SIZE.medium}
       buttonStyle={BUTTON_STYLE.reverse}
       iconClassName={styles.icon}
-      title={isDarkTheme(theme) ? "Темная тема" : "Светлая тема"}
       icon={isDarkTheme(theme) ? ICON_MAP.moon : ICON_MAP.sun}
       onClick={handleToggleVisibility}
-    />
+    >
+      {isDarkTheme(theme) ? "Темная тема" : "Светлая тема"}
+    </Button>
   );
 
   const overlay = (
@@ -49,21 +50,23 @@ export const OrdersPageHeader = ({ title, className }) => {
         buttonStyle={
           isDarkTheme(theme) ? BUTTON_STYLE.reverse : BUTTON_STYLE.primary
         }
-        title={"Светлая"}
         icon={ICON_MAP.sun}
         onClick={() => handleThemeSelection(COLOR_THEMES.light)}
         className={styles.dialog_Button}
-      />
+      >
+        {"Светлая"}
+      </Button>
       <Button
         size={BUTTON_SIZE.small}
         buttonStyle={
           isDarkTheme(theme) ? BUTTON_STYLE.primary : BUTTON_STYLE.reverse
         }
-        title={"Темная"}
         icon={ICON_MAP.moon}
         onClick={() => handleThemeSelection(COLOR_THEMES.dark)}
         className={styles.dialog_Button}
-      />
+      >
+        {"Темная"}
+      </Button>
     </div>
   );
 

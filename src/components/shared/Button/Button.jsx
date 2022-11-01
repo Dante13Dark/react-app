@@ -19,7 +19,7 @@ export const Button = ({
   buttonStyle = BUTTON_STYLE.primary,
   icon,
   iconClassName,
-  title,
+  children,
   disabled,
   onClick,
   ...props
@@ -34,7 +34,7 @@ export const Button = ({
       {...props}
     >
       {icon && <Icon name={icon} className={cn(styles.icon, iconClassName)} />}
-      {title && <div className={styles.text}>{title}</div>}
+      {children && <div className={styles.text}>{children}</div>}
     </button>
   );
 };

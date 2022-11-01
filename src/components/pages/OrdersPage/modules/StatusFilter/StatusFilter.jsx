@@ -2,9 +2,9 @@ import cn from "classnames";
 import { useMemo, useState } from "react";
 import styles from "./StatusFilter.module.css";
 import { Input, INPUT_STYLE } from "../../../../shared/Input/Input";
-import { DropdownListItem } from "../../../../shared/DropdownListItem/DropdownListItem";
 import { Dropdown } from "../../../../shared/Dropdown/Dropdown";
 import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
+import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
 
 const STATUS_MAP = {
   new: "Новый",
@@ -21,19 +21,20 @@ export const StatusFilter = ({ className }) => {
     setIsVisibleDropdown(!isVisibleDropdown);
   };
 
-  const [statusValues, setStatusValues] = useState({});
+  const [statusValues, setStatusValues] = useState([]);
 
   const handleChangeStatusValues = (el) => {
-    setStatusValues({ ...statusValues, [el]: !statusValues[el] });
+    const newStatusValues = statusValues.includes(el)
+      ? statusValues.filter((item) => item !== el)
+      : [...statusValues, el];
+    setStatusValues(newStatusValues);
   };
 
   const checkedStatuses = useMemo(() => {
-    const statuses = Object.keys(statusValues)
-      .filter((status) => statusValues[status])
-      .map((status) => STATUS_MAP[status]);
+    const statuses = statusValues.map((status) => STATUS_MAP[status]);
     if (
       !statuses.length ||
-      statuses.length === Object.keys(statusValues).length
+      statuses.length === Object.keys(STATUS_MAP).length
     ) {
       return "Любой";
     } else {
@@ -60,13 +61,17 @@ export const StatusFilter = ({ className }) => {
   const overlay = (
     <div className={styles.list}>
       {Object.keys(STATUS_MAP).map((key) => (
-        <DropdownListItem
-          key={key}
-          text={STATUS_MAP[key]}
-          value={key}
-          onClick={() => handleChangeStatusValues(key)}
-          checked={statusValues[key]}
-        />
+        <li key={key} className={styles.item}>
+          <Checkbox
+            key={key}
+            text={STATUS_MAP[key]}
+            value={key}
+            onClick={() => handleChangeStatusValues(key)}
+            checked={statusValues[key]}
+            className={styles.control}
+            iconClassName={styles.control_icon}
+          />
+        </li>
       ))}
     </div>
   );

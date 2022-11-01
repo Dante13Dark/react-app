@@ -8,10 +8,6 @@ import { Button, BUTTON_SIZE, BUTTON_STYLE } from "../../shared/Button/Button";
 import { Input, INPUT_STYLE } from "../../shared/Input/Input";
 import { Searchbar } from "../../shared/Searchbar/Searchbar";
 import { PageHeader } from "../../shared/PageHeader/PageHeader";
-import {
-  DropdownListItem,
-  ITEM_TYPE,
-} from "../../shared/DropdownListItem/DropdownListItem";
 
 export const UIKit = () => {
   return (
@@ -36,13 +32,12 @@ const Buttons = () => {
             icon={ICON_MAP.dot}
             size={BUTTON_SIZE.medium}
             buttonStyle={BUTTON_STYLE.primary}
-            title="Text here"
-          />
-          <Button
-            size={BUTTON_SIZE.medium}
-            buttonStyle={BUTTON_STYLE.primary}
-            title="Text here"
-          />
+          >
+            Text here
+          </Button>
+          <Button size={BUTTON_SIZE.medium} buttonStyle={BUTTON_STYLE.primary}>
+            Text here
+          </Button>
           <Button
             icon={ICON_MAP.dot}
             size={BUTTON_SIZE.medium}
@@ -55,13 +50,12 @@ const Buttons = () => {
             icon={ICON_MAP.dot}
             size={BUTTON_SIZE.medium}
             buttonStyle={BUTTON_STYLE.reverse}
-            title="Text here"
-          />
-          <Button
-            size={BUTTON_SIZE.medium}
-            buttonStyle={BUTTON_STYLE.reverse}
-            title="Text here"
-          />
+          >
+            Text here
+          </Button>
+          <Button size={BUTTON_SIZE.medium} buttonStyle={BUTTON_STYLE.reverse}>
+            Text here
+          </Button>
           <Button
             icon={ICON_MAP.dot}
             size={BUTTON_SIZE.medium}
@@ -74,13 +68,15 @@ const Buttons = () => {
             icon={ICON_MAP.dot}
             size={BUTTON_SIZE.medium}
             buttonStyle={BUTTON_STYLE.secondary}
-            title="Text here"
-          />
+          >
+            Text here
+          </Button>
           <Button
             size={BUTTON_SIZE.medium}
             buttonStyle={BUTTON_STYLE.secondary}
-            title="Text here"
-          />
+          >
+            Text here
+          </Button>
           <Button
             icon={ICON_MAP.dot}
             size={BUTTON_SIZE.medium}
@@ -93,13 +89,12 @@ const Buttons = () => {
             icon={ICON_MAP.dot}
             size={BUTTON_SIZE.small}
             buttonStyle={BUTTON_STYLE.primary}
-            title="Text here"
-          />
-          <Button
-            size={BUTTON_SIZE.small}
-            buttonStyle={BUTTON_STYLE.primary}
-            title="Text here"
-          />
+          >
+            Text here
+          </Button>
+          <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.primary}>
+            Text here
+          </Button>
           <Button
             icon={ICON_MAP.dot}
             size={BUTTON_SIZE.small}
@@ -112,13 +107,12 @@ const Buttons = () => {
             icon={ICON_MAP.dot}
             size={BUTTON_SIZE.small}
             buttonStyle={BUTTON_STYLE.reverse}
-            title="Text here"
-          />
-          <Button
-            size={BUTTON_SIZE.small}
-            buttonStyle={BUTTON_STYLE.reverse}
-            title="Text here"
-          />
+          >
+            Text here
+          </Button>
+          <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
+            Text here
+          </Button>
           <Button
             icon={ICON_MAP.dot}
             size={BUTTON_SIZE.small}
@@ -204,8 +198,9 @@ const PageHeaders = () => {
       buttonStyle={BUTTON_STYLE.reverse}
       icon={ICON_MAP.sun}
       iconClassName={styles.icon}
-      title={"Светлая тема"}
-    />
+    >
+      {"Светлая тема"}
+    </Button>
   );
 
   return (
@@ -229,12 +224,48 @@ const Dropdowns = () => (
         )}
       >
         <ul className={dropdownStyles.list}>
-          <DropdownListItem text={"Новый"} />
-          <DropdownListItem text={"Расчет"} />
-          <DropdownListItem text={"Подтвержден"} />
-          <DropdownListItem text={"Отложен"} />
-          <DropdownListItem text={"Выполнен"} />
-          <DropdownListItem text={"Отменен"} />
+          <li className={styles.item}>
+            <Checkbox
+              text={"Новый"}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
+          <li className={styles.item}>
+            <Checkbox
+              text={"Расчет"}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
+          <li className={styles.item}>
+            <Checkbox
+              text={"Подтвержден"}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
+          <li className={styles.item}>
+            <Checkbox
+              text={"Отложен"}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
+          <li className={styles.item}>
+            <Checkbox
+              text={"Выполнен"}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
+          <li className={styles.item}>
+            <Checkbox
+              text={"Отменен"}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
         </ul>
       </div>
 
@@ -246,49 +277,67 @@ const Dropdowns = () => (
         )}
       >
         <ul className={dropdownStyles.list}>
-          <DropdownListItem
-            type={ITEM_TYPE.radio}
-            text={"Новый"}
-            name={"dropdown-selector"}
-            value={"new"}
-            isTextOnly={true}
-          />
-          <DropdownListItem
-            type={ITEM_TYPE.radio}
-            text={"Расчет"}
-            name={"dropdown-selector"}
-            value={"calculation"}
-            isTextOnly={true}
-            checked
-          />
-          <DropdownListItem
-            type={ITEM_TYPE.radio}
-            text={"Подтвержден"}
-            name={"dropdown-selector"}
-            value={"accepted"}
-            isTextOnly={true}
-          />
-          <DropdownListItem
-            type={ITEM_TYPE.radio}
-            text={"Отложен"}
-            name={"dropdown-selector"}
-            value={"paused"}
-            isTextOnly={true}
-          />
-          <DropdownListItem
-            type={ITEM_TYPE.radio}
-            text={"Выполнен"}
-            name={"dropdown-selector"}
-            value={"done"}
-            isTextOnly={true}
-          />
-          <DropdownListItem
-            type={ITEM_TYPE.radio}
-            text={"Отменен"}
-            name={"dropdown-selector"}
-            value={"cancelled"}
-            isTextOnly={true}
-          />
+          <li className={styles.item}>
+            <Radio
+              text={"Новый"}
+              name={"dropdown-selector"}
+              value={"new"}
+              isTextOnly={true}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
+          <li className={styles.item}>
+            <Radio
+              text={"Расчет"}
+              name={"dropdown-selector"}
+              value={"calculation"}
+              isTextOnly={true}
+              checked
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
+          <li className={styles.item}>
+            <Radio
+              text={"Подтвержден"}
+              name={"dropdown-selector"}
+              value={"accepted"}
+              isTextOnly={true}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
+          <li className={styles.item}>
+            <Radio
+              text={"Отложен"}
+              name={"dropdown-selector"}
+              value={"paused"}
+              isTextOnly={true}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
+          <li className={styles.item}>
+            <Radio
+              text={"Выполнен"}
+              name={"dropdown-selector"}
+              value={"done"}
+              isTextOnly={true}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
+          <li className={styles.item}>
+            <Radio
+              text={"Отменен"}
+              name={"dropdown-selector"}
+              value={"cancelled"}
+              isTextOnly={true}
+              className={styles.control}
+              iconClassName={styles.control__icon}
+            />
+          </li>
         </ul>
       </form>
 
@@ -320,14 +369,16 @@ const Dropdowns = () => (
             className={styles.button}
             size={BUTTON_SIZE.small}
             buttonStyle={BUTTON_STYLE.reverse}
-            title={"Удалить"}
-          />
+          >
+            {"Удалить"}
+          </Button>
           <Button
             className={styles.button}
             size={BUTTON_SIZE.small}
             buttonStyle={BUTTON_STYLE.primary}
-            title={"Отмена"}
-          />
+          >
+            {"Отмена"}
+          </Button>
         </div>
       </div>
 
@@ -344,16 +395,18 @@ const Dropdowns = () => (
             className={dropdownStyles.button}
             size={BUTTON_SIZE.small}
             buttonStyle={BUTTON_STYLE.reverse}
-            title={"Светлая"}
             icon={ICON_MAP.sun}
-          />
+          >
+            {"Светлая"}
+          </Button>
           <Button
             className={dropdownStyles.button}
             size={BUTTON_SIZE.small}
             buttonStyle={BUTTON_STYLE.primary}
-            title={"Темная"}
             icon={ICON_MAP.moon}
-          />
+          >
+            {"Темная"}
+          </Button>
         </div>
       </div>
     </div>

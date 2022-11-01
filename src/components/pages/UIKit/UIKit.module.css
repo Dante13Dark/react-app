@@ -127,3 +127,20 @@
 .button .icon {
   opacity: 1;
 }
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.control {
+  padding: 0.5rem 1rem;
+}
+
+.control .control__icon {
+  top: unset;
+  left: 1rem;
+}
