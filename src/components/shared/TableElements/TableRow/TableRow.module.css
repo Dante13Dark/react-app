@@ -1,0 +1,8 @@
+._ {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+}

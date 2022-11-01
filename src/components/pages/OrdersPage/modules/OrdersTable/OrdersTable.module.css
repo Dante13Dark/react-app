@@ -1,0 +1,83 @@
+.bordered {
+  border-bottom: 0.125rem solid var(--additional-filter-background);
+}
+
+.checkbox_cell {
+  width: 2rem;
+}
+
+.order_cell {
+  width: 6.75rem;
+}
+
+.date_cell {
+  width: 11rem;
+}
+
+.status_cell {
+  width: 11rem;
+}
+
+.status_cell__icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.status_success {
+  color: var(--style-success);
+  fill: var(--style-success);
+  stroke: var(--style-success);
+}
+.status_warning {
+  color: var(--style-warning);
+  fill: var(--style-warning);
+  stroke: var(--style-warning);
+}
+.status_failure {
+  opacity: 0.5;
+  color: var(--text-primary);
+  fill: var(--text-primary);
+  stroke: var(--text-primary);
+}
+.status_waiting {
+  color: var(--style-primary);
+  fill: var(--style-primary);
+  stroke: var(--style-primary);
+}
+
+.count_cell {
+  width: 6rem;
+}
+
+.amount_cell {
+  width: 8rem;
+}
+
+.client_cell {
+  width: 100%;
+}
+
+.footer__buttonsBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.button_danger {
+  background-color: var(--style-danger);
+}
+
+.footer__text {
+  color: var(--text-primary);
+}
+
+.footer__pages {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer__pagination {
+  display: flex;
+  gap: 0.25rem;
+}

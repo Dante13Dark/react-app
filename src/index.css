@@ -1,18 +1,13 @@
 :root {
-  --text-primary: #000000;
-  --text-secondary: #bad8f5;
-  --text-reverse: #ffffff;
-  --additional-filter-background: #ebf0f5;
-  --shadow: rgba(0, 0, 0, 0.15);
-
   --style-primary: #459df5;
   --style-danger: #f53152;
   --style-warning: #ff8c56;
-  --style-success: #ff8c56;
+  --style-success: #0fb864;
 
   --dashed-border-style: #8055ff;
   --button-hover-shadow: #287ed5;
   --button-active-shadow: #1e65a4;
+  --checkbox-checkmark-color: #ffffff;
 }
 
 :root[data-theme="light"] {
