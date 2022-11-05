@@ -1,7 +1,7 @@
 import cn from "classnames";
 import { useMemo, useState } from "react";
 import styles from "./StatusFilter.module.css";
-import { Input, INPUT_STYLE } from "../../../../shared/Input/Input";
+import { Input } from "../../../../shared/Input/Input";
 import { Dropdown } from "../../../../shared/Dropdown/Dropdown";
 import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
@@ -47,7 +47,6 @@ export const StatusFilter = ({ className }) => {
   const input = (
     <div className={classNames}>
       <Input
-        inputStyle={INPUT_STYLE.default}
         label="Статус заказа"
         placeholder={"Любой"}
         onClick={handleToggleVisibility}

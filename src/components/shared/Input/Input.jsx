@@ -4,11 +4,6 @@ import cn from "classnames";
 import { Button, BUTTON_SIZE, BUTTON_STYLE } from "../Button/Button";
 
 const noop = () => {};
-export const INPUT_STYLE = {
-  default: styles.default,
-  incorrect: styles.incorrect,
-  disabled: styles.disabled,
-};
 
 export const Input = ({
   className,
@@ -16,12 +11,16 @@ export const Input = ({
   value,
   placeholder,
   label,
-  inputStyle = INPUT_STYLE.default,
+  incorrect,
+  disabled,
   prefix,
   postfix,
   ...props
 }) => {
-  const inputStyleNames = cn(styles._, className, inputStyle);
+  const inputStyleNames = cn(styles._, className, {
+    [styles.incorrect]: incorrect && !disabled,
+    [styles.disabled]: disabled,
+  });
 
   return (
     <div className={inputStyleNames}>
@@ -37,12 +36,12 @@ export const Input = ({
           id={id}
           value={value}
           placeholder={placeholder}
-          disabled={inputStyle === INPUT_STYLE.disabled}
+          disabled={disabled}
           onChange={noop}
           {...props}
         />
         {postfix && postfix}
-        {inputStyle === INPUT_STYLE.incorrect && (
+        {incorrect && !disabled && (
           <Button
             className={styles.cross_button}
             icon={ICON_MAP.xMedium}
@@ -51,7 +50,7 @@ export const Input = ({
             size={BUTTON_SIZE.small}
           />
         )}
-        {inputStyle === INPUT_STYLE.disabled && (
+        {disabled && (
           <Icon name={ICON_MAP.locked} className={styles.lock_icon} />
         )}
       </div>

@@ -5,7 +5,7 @@ import { Checkbox } from "../../shared/Checkbox/Checkbox";
 import { Radio } from "../../shared/Radio/Radio";
 import { Icon, ICON_MAP } from "../../shared/Icon/Icon";
 import { Button, BUTTON_SIZE, BUTTON_STYLE } from "../../shared/Button/Button";
-import { Input, INPUT_STYLE } from "../../shared/Input/Input";
+import { Input } from "../../shared/Input/Input";
 import { Searchbar } from "../../shared/Searchbar/Searchbar";
 import { PageHeader } from "../../shared/PageHeader/PageHeader";
 
@@ -151,26 +151,32 @@ const Inputs = () => {
   return (
     <div className={cn(styles.inputs, styles.dashed_wrapper)}>
       <Input
-        inputStyle={INPUT_STYLE.default}
         id={"inputField_empty1"}
         label={"Дата и время заказа"}
         placeholder={"Введите"}
       />
       <Input
-        inputStyle={INPUT_STYLE.incorrect}
+        incorrect
         id={"inputField_incorrect1"}
         label={"Дата и время заказа"}
         placeholder={"Введите"}
       />
       <Input
-        inputStyle={INPUT_STYLE.disabled}
+        disabled
         id={"inputField_disabled1"}
         label={"Дата и время заказа"}
         placeholder={"Введите"}
         value={"12.12.2012"}
       />
       <Input
-        inputStyle={INPUT_STYLE.default}
+        incorrect
+        disabled
+        id={"inputField_disabled1"}
+        label={"Дата и время заказа"}
+        placeholder={"Введите"}
+        value={"12.12.2012"}
+      />
+      <Input
         id={"inputField_empty1"}
         label={"Дата и время заказа"}
         placeholder={"Введите"}
@@ -349,7 +355,6 @@ const Dropdowns = () => (
         )}
       >
         <Input
-          inputStyle={INPUT_STYLE.default}
           id={"dropdown__inputField"}
           label={"Номер страницы"}
           placeholder={"Введите"}

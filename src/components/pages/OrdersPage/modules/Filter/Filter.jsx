@@ -39,7 +39,7 @@ export const Filter = ({
             icon={ICON_MAP.filter}
             size={BUTTON_SIZE.medium}
             buttonStyle={isActive ? BUTTON_STYLE.primary : BUTTON_STYLE.reverse}
-            onClick={() => onShowFilterButtonClick()}
+            onClick={onShowFilterButtonClick}
           >
             Фильтры
           </Button>

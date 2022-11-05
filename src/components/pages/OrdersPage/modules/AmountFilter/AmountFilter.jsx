@@ -10,9 +10,9 @@ export const AmountFilter = ({ className }) => {
         label="Сумма заказа"
         placeholder="&#8381;"
         prefix="от"
-        id="AmountFilter"
+        id="AmountFilterFrom"
       />
-      <Input placeholder="&#8381;" prefix="до" id="AmountFilter" />
+      <Input placeholder="&#8381;" prefix="до" id="AmountFilterTo" />
     </div>
   );
 };

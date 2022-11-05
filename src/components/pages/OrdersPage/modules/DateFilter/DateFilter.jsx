@@ -10,9 +10,9 @@ export const DateFilter = ({ className }) => {
         label="Дата оформления"
         placeholder="dd.mm.yyyy"
         prefix="c"
-        id="DateFilter"
+        id="DateFilterFrom"
       />
-      <Input placeholder="dd.mm.yyyy" prefix="по" id="DateFilter" />
+      <Input placeholder="dd.mm.yyyy" prefix="по" id="DateFilterTo" />
     </div>
   );
 };
