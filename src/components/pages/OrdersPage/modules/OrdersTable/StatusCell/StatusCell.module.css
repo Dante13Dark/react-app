@@ -1,0 +1,48 @@
+._ {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.success {
+  color: var(--style-success);
+}
+
+.success .icon {
+  fill: var(--style-success);
+  stroke: var(--style-success);
+}
+
+.warning {
+  color: var(--style-warning);
+}
+
+.warning .icon {
+  fill: var(--style-warning);
+  stroke: var(--style-warning);
+}
+
+.failure {
+  opacity: 0.5;
+  color: var(--text-primary);
+}
+
+.failure .icon {
+  fill: var(--text-primary);
+  stroke: var(--text-primary);
+}
+
+.waiting {
+  color: var(--style-primary);
+}
+
+.waiting .icon {
+  fill: var(--style-primary);
+  stroke: var(--style-primary);
+}

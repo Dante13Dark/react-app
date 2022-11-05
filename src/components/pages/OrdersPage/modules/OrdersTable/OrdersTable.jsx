@@ -11,58 +11,21 @@ import {
   BUTTON_SIZE,
   BUTTON_STYLE,
 } from "../../../../shared/Button/Button";
-import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
+import { ICON_MAP } from "../../../../shared/Icon/Icon";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
 import cn from "classnames";
 import { orders } from "./orders";
+import { StatusCell } from "./StatusCell/StatusCell";
 
-const STATUS_MAP = {
-  new: {
-    name: "Новый",
-    icon: ICON_MAP.dot,
-    statusStyle: styles.status_warning,
-  },
-  calculation: {
-    name: "Расчет",
-    icon: ICON_MAP.dot,
-    statusStyle: styles.status_waiting,
-  },
-  confirmed: {
-    name: "Подтвержден",
-    icon: ICON_MAP.dot,
-    statusStyle: styles.status_waiting,
-  },
-  postponed: {
-    name: "Отложен",
-    icon: ICON_MAP.dot,
-    statusStyle: styles.status_warning,
-  },
-  completed: {
-    name: "Выполнен",
-    icon: ICON_MAP.checkmark,
-    statusStyle: styles.status_success,
-  },
-  declined: {
-    name: "Отменен",
-    icon: ICON_MAP.abort,
-    statusStyle: styles.status_failure,
-  },
+const noop = () => {};
+const STATUS_NAME = {
+  new: "Новый",
+  calculation: "Расчет",
+  confirmed: "Подтвержден",
+  postponed: "Отложен",
+  completed: "Выполнен",
+  declined: "Отменен",
 };
-
-function getStatusText(status) {
-  const selectedStatus = STATUS_MAP[status];
-  return (
-    <>
-      <Icon
-        name={selectedStatus.icon}
-        className={cn(styles.status_cell__icon, selectedStatus.statusStyle)}
-      />
-      <span className={cn(selectedStatus.statusStyle)}>
-        {selectedStatus.name}
-      </span>
-    </>
-  );
-}
 
 export const OrdersTable = () => {
   return (
@@ -73,14 +36,16 @@ export const OrdersTable = () => {
             <Checkbox />
           </TableHeaderCell>
           <TableHeaderCell className={styles.order_cell}>#</TableHeaderCell>
-          <TableHeaderCell className={styles.date_cell}>Дата</TableHeaderCell>
-          <TableHeaderCell className={styles.status_cell}>
+          <TableHeaderCell className={styles.date_cell} onClick={noop}>
+            Дата
+          </TableHeaderCell>
+          <TableHeaderCell className={styles.status_cell} onClick={noop}>
             Статус
           </TableHeaderCell>
-          <TableHeaderCell className={styles.count_cell}>
+          <TableHeaderCell className={styles.count_cell} onClick={noop}>
             Позиций
           </TableHeaderCell>
-          <TableHeaderCell className={styles.amount_cell}>
+          <TableHeaderCell className={styles.amount_cell} onClick={noop}>
             Сумма
           </TableHeaderCell>
           <TableHeaderCell className={styles.client_cell}>
@@ -96,9 +61,9 @@ export const OrdersTable = () => {
             </TableCell>
             <TableCell className={styles.order_cell}>{order.id}</TableCell>
             <TableCell className={styles.date_cell}>{order.date}</TableCell>
-            <TableCell className={styles.status_cell}>
-              {getStatusText(order.status)}
-            </TableCell>
+            <StatusCell className={styles.status_cell} status={order.status}>
+              {STATUS_NAME[order.status]}
+            </StatusCell>
             <TableCell className={styles.count_cell}>{order.amount}</TableCell>
             <TableCell className={styles.amount_cell}>{order.sum}</TableCell>
             <TableCell className={styles.client_cell}>
@@ -115,14 +80,14 @@ export const OrdersTable = () => {
             buttonStyle={BUTTON_STYLE.primary}
             icon={ICON_MAP.pencil}
           >
-            {"Изменить статус"}
+            Изменить статус
           </Button>
           <Button
             size={BUTTON_SIZE.small}
-            buttonStyle={cn(BUTTON_STYLE.primary, styles.button_danger)}
+            buttonStyle={cn(BUTTON_STYLE.danger)}
             icon={ICON_MAP.bin}
           >
-            {"Удалить"}
+            Удалить
           </Button>
         </div>
         <div className={styles.footer__pages}>

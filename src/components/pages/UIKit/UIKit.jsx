@@ -205,7 +205,7 @@ const PageHeaders = () => {
       icon={ICON_MAP.sun}
       iconClassName={styles.icon}
     >
-      {"Светлая тема"}
+      Светлая тема
     </Button>
   );
 
@@ -375,14 +375,14 @@ const Dropdowns = () => (
             size={BUTTON_SIZE.small}
             buttonStyle={BUTTON_STYLE.reverse}
           >
-            {"Удалить"}
+            Удалить
           </Button>
           <Button
             className={styles.button}
             size={BUTTON_SIZE.small}
             buttonStyle={BUTTON_STYLE.primary}
           >
-            {"Отмена"}
+            Отмена
           </Button>
         </div>
       </div>
@@ -402,7 +402,7 @@ const Dropdowns = () => (
             buttonStyle={BUTTON_STYLE.reverse}
             icon={ICON_MAP.sun}
           >
-            {"Светлая"}
+            Светлая
           </Button>
           <Button
             className={dropdownStyles.button}
@@ -410,7 +410,7 @@ const Dropdowns = () => (
             buttonStyle={BUTTON_STYLE.primary}
             icon={ICON_MAP.moon}
           >
-            {"Темная"}
+            Темная
           </Button>
         </div>
       </div>

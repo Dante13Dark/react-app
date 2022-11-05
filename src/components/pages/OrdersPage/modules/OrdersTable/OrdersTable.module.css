@@ -3,53 +3,28 @@
 }
 
 .checkbox_cell {
+  min-width: 2rem;
   width: 2rem;
 }
 
 .order_cell {
+  min-width: 6.75rem;
   width: 6.75rem;
 }
 
-.date_cell {
-  width: 11rem;
-}
-
+.date_cell,
 .status_cell {
+  min-width: 11rem;
   width: 11rem;
-}
-
-.status_cell__icon {
-  height: 1rem;
-  width: 1rem;
-}
-
-.status_success {
-  color: var(--style-success);
-  fill: var(--style-success);
-  stroke: var(--style-success);
-}
-.status_warning {
-  color: var(--style-warning);
-  fill: var(--style-warning);
-  stroke: var(--style-warning);
-}
-.status_failure {
-  opacity: 0.5;
-  color: var(--text-primary);
-  fill: var(--text-primary);
-  stroke: var(--text-primary);
-}
-.status_waiting {
-  color: var(--style-primary);
-  fill: var(--style-primary);
-  stroke: var(--style-primary);
 }
 
 .count_cell {
+  min-width: 6rem;
   width: 6rem;
 }
 
 .amount_cell {
+  min-width: 8rem;
   width: 8rem;
 }
 
@@ -69,7 +44,7 @@
 }
 
 .footer__text {
-  color: var(--text-primary);
+  color: var(--style-primary);
 }
 
 .footer__pages {

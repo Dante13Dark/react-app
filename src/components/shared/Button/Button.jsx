@@ -11,6 +11,7 @@ export const BUTTON_STYLE = {
   primary: "primary",
   secondary: "secondary",
   reverse: "reverse",
+  danger: "danger",
 };
 
 export const Button = ({
@@ -30,6 +31,7 @@ export const Button = ({
     [styles.primary]: buttonStyle === BUTTON_STYLE.primary,
     [styles.secondary]: buttonStyle === BUTTON_STYLE.secondary,
     [styles.reverse]: buttonStyle === BUTTON_STYLE.reverse,
+    [styles.danger]: buttonStyle === BUTTON_STYLE.danger,
   });
 
   return (
