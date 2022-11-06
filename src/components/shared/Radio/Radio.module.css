@@ -1,0 +1,68 @@
+._ {
+  display: flex;
+  position: relative;
+  flex-grow: 1;
+  gap: 0.5rem;
+}
+
+.area {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  background-color: var(--text-reverse);
+  border: 0.0625rem solid var(--text-secondary);
+  border-radius: 0.9375rem;
+  box-sizing: border-box;
+}
+
+.icon {
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  top: 0;
+  width: 1rem;
+  fill: var(--text-reverse);
+  transition: opacity 0.25s ease-in;
+}
+
+.text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: inherit;
+  font-size: inherit;
+  color: var(--text-primary);
+  flex-grow: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+.hidden + .text + .icon {
+  display: none;
+}
+
+.area:active {
+  background-color: var(--text-secondary);
+}
+
+.area:checked {
+  background-color: var(--style-primary);
+  border-color: var(--style-primary);
+  border-radius: 0.9375rem;
+}
+
+.area:checked + .text + .icon {
+  opacity: 1;
+}
+
+.area:checked + .icon {
+  opacity: 1;
+}
+
+.area:checked + .text {
+  color: var(--style-primary);
+}

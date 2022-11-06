@@ -1,0 +1,21 @@
+.title {
+  display: flex;
+  align-self: flex-start;
+  color: var(--text-primary);
+}
+
+.button .icon {
+  opacity: 1;
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.dialog_Button {
+  width: 100%;
+}

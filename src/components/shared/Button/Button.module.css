@@ -1,0 +1,104 @@
+._ {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.text {
+  padding: 0;
+}
+
+.primary {
+  color: var(--text-reverse);
+  background-color: var(--style-primary);
+}
+.primary .icon {
+  fill: var(--text-reverse);
+  stroke: var(--text-reverse);
+}
+
+.reverse {
+  color: var(--style-primary);
+  background-color: transparent;
+}
+.reverse .icon {
+  fill: var(--style-primary);
+  stroke: var(--style-primary);
+}
+
+.secondary {
+  color: var(--text-primary);
+  background-color: transparent;
+}
+.secondary .icon {
+  fill: var(--text-primary);
+  stroke: var(--text-primary);
+}
+
+.small {
+  height: 1.5rem;
+  padding: 0.25rem 0;
+  gap: 0.25rem;
+}
+
+.small .icon:first-child {
+  margin-left: 0.5rem;
+}
+
+.small .icon:only-child {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.small .text:first-child {
+  margin-left: 0.5rem;
+}
+
+.small .text:last-child {
+  margin-right: 0.5rem;
+}
+
+.medium {
+  height: 2rem;
+  padding: 0.5rem 0;
+  gap: 0.5rem;
+}
+
+.medium .icon:first-child {
+  margin-left: 1rem;
+}
+
+.medium .icon:only-child {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.medium .text:first-child {
+  margin-left: 1rem;
+}
+
+.medium .text:last-child {
+  margin-right: 1rem;
+}
+
+._:hover:enabled {
+  box-shadow: 0 0 0 0.0625rem var(--button-hover-shadow);
+}
+
+._:active:enabled {
+  box-shadow: 0 0 0 0.0625rem var(--button-active-shadow);
+}
+
+._:hover:disabled {
+  cursor: auto;
+}

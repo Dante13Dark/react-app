@@ -1,0 +1,146 @@
+.dashed_wrapper {
+  box-sizing: border-box;
+  border: 0.0625rem dashed var(--dashed-border-style);
+  border-radius: 0.3125rem;
+  padding: 3rem;
+}
+
+.container {
+  margin: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.buttons {
+  width: 36rem;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 3rem;
+}
+
+.buttons__section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.checkboxes {
+  width: fit-content;
+  height: 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.checkboxes .dashed_wrapper {
+  padding: 1.5rem;
+}
+
+.radios {
+  width: fit-content;
+  height: 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.radios .dashed_wrapper {
+  padding: 1.5rem;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 22rem;
+  height: fit-content;
+}
+
+.vArrow_icon {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  width: 1rem;
+  height: 1rem;
+  opacity: 1;
+  fill: var(--text-secondary);
+  stroke: var(--text-secondary);
+}
+
+.searchbars {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 22rem;
+  height: 12rem;
+}
+
+.page_headers {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 49.125rem;
+  height: 13rem;
+}
+
+.dropdowns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  gap: 3rem;
+  width: 42rem;
+  height: 32rem;
+}
+
+.dropdown_section1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.dropdown_section2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.dropdown_section3 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.dropdown_section4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.dropdown_section5 {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.button .icon {
+  opacity: 1;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.control {
+  padding: 0.5rem 1rem;
+}
+
+.control .control__icon {
+  top: unset;
+  left: 1rem;
+}

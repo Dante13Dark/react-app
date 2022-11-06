@@ -1,13 +1,39 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --text-primary: #000000;
+  --text-secondary: #bad8f5;
+  --text-reverse: #ffffff;
+  --additional-filter-background: #ebf0f5;
+  --shadow: rgba(0, 0, 0, 0.15);
+
+  --style-primary: #459df5;
+  --style-danger: #f53152;
+  --style-warning: #ff8c56;
+  --style-success: #ff8c56;
+
+  --dashed-border-style: #8055ff;
+  --button-hover-shadow: #287ed5;
+  --button-active-shadow: #1e65a4;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+:root[data-theme="light"] {
+  --text-primary: #000000;
+  --text-secondary: #bad8f5;
+  --text-reverse: #ffffff;
+  --additional-filter-background: #ebf0f5;
+  --shadow: rgba(0, 0, 0, 0.15);
+}
+
+:root[data-theme="dark"] {
+  --text-primary: #bcc4cc;
+  --text-secondary: #454e52;
+  --text-reverse: #2b2d33;
+  --additional-filter-background: #171b1f;
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  background-color: var(--text-reverse);
 }

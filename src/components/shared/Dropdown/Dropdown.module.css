@@ -1,0 +1,74 @@
+.wrapper {
+  position: relative;
+}
+
+._ {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  width: 10rem;
+  box-sizing: border-box;
+  background-color: var(--text-reverse);
+  box-shadow: 0 0.5rem 1.5rem var(--shadow), 0 0.25rem 0.5rem var(--shadow),
+    0 0.125rem 0.125rem var(--shadow);
+}
+
+.overlay {
+  position: absolute;
+  top: 3.75rem;
+  right: 0;
+}
+
+.withList {
+  padding: 0.5rem 0;
+}
+
+.withInput {
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.withDialog {
+  padding: 1rem;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.title {
+  display: flex;
+  align-self: flex-start;
+}
+
+.item:hover {
+  background-color: var(--text-secondary);
+}
+
+.item:active {
+  background-color: var(--style-primary);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+._ .button {
+  justify-content: center;
+}
