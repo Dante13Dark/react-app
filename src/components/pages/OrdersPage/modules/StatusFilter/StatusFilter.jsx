@@ -43,7 +43,13 @@ export const StatusFilter = ({ className }) => {
   }, [statusValues]);
 
   const classNames = cn(styles._, className);
-  const postfixIcon = <Icon name={ICON_MAP.vArrow} className={styles.icon} />;
+  const postfixIcon = (
+    <Icon
+      name={ICON_MAP.vArrow}
+      className={styles.icon}
+      onClick={handleToggleVisibility}
+    />
+  );
   const input = (
     <div className={classNames}>
       <Input

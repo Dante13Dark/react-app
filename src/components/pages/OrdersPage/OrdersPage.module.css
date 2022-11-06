@@ -4,6 +4,6 @@
   flex-direction: column;
   gap: 2rem;
   background-color: var(--text-reverse);
-  height: calc(100vh - 3rem);
-  width: calc(100vw - 7rem);
+  height: calc(100vh - 2rem);
+  width: calc(100vw - 6rem);
 }
