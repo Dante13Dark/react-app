@@ -1,4 +1,3 @@
-import cn from "classnames";
 import {
   Button,
   BUTTON_SIZE,
@@ -10,27 +9,39 @@ import styles from "./Filter.module.css";
 import { DateFilter } from "../DateFilter/DateFilter";
 import { StatusFilter } from "../StatusFilter/StatusFilter";
 import { AmountFilter } from "../AmountFilter/AmountFilter";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getSearchValue } from "../../model/ordersFilter/ordersFilterSelectors";
+import {
+  changeSearchValue,
+  resetSearchValue,
+  resetFilters,
+} from "../../model/ordersFilter/ordersFilterSlice";
 
-const noop = () => {};
+export const Filter = () => {
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const handleToggleAdditionalFilter = () => {
+    setIsFilterVisible(!isFilterVisible);
+  };
 
-export const Filter = ({
-  isActive = false,
-  onShowFilterButtonClick = noop,
-  onResetButtonClick = noop,
-  searchValue,
-  onSearchbarChange = noop,
-  className,
-}) => {
-  const blockClass = cn(styles._, className);
+  const dispatch = useDispatch();
+
+  const searchValue = useSelector(getSearchValue);
+  const handleSearchbarChangeValue = (e) =>
+    dispatch(changeSearchValue(e.target.value));
+  const handleSearchbarReset = () => dispatch(resetSearchValue());
+
+  const handleResetFilters = () => dispatch(resetFilters());
 
   return (
-    <div className={blockClass}>
+    <div className={styles._}>
       <div className={styles.mainBlock}>
         <div className={styles.leftBlock}>
           <div className={styles.searchbarWrapper}>
             <Searchbar
               value={searchValue}
-              onChange={onSearchbarChange}
+              onChange={handleSearchbarChangeValue}
+              onReset={handleSearchbarReset}
               placeholder="Номер заказа или ФИО"
             />
           </div>
@@ -38,18 +49,19 @@ export const Filter = ({
           <Button
             icon={ICON_MAP.filter}
             size={BUTTON_SIZE.medium}
-            buttonStyle={isActive ? BUTTON_STYLE.primary : BUTTON_STYLE.reverse}
-            onClick={onShowFilterButtonClick}
+            buttonStyle={
+              isFilterVisible ? BUTTON_STYLE.primary : BUTTON_STYLE.reverse
+            }
+            onClick={handleToggleAdditionalFilter}
           >
             Фильтры
           </Button>
-
-          {isActive && (
+          {isFilterVisible && (
             <Button
               size={BUTTON_SIZE.medium}
               buttonStyle={BUTTON_STYLE.reverse}
               id="filterResetButton"
-              onClick={onResetButtonClick}
+              onClick={handleResetFilters}
             >
               Сбросить фильтры
             </Button>
@@ -61,7 +73,7 @@ export const Filter = ({
         </div>
       </div>
 
-      {isActive && (
+      {isFilterVisible && (
         <div className={styles.extendedBlock}>
           <DateFilter className={styles.dateFilter} />
           <StatusFilter className={styles.stateFilter} />

@@ -17,16 +17,13 @@ import {
 } from "../../../../shared/ThemeContext/ThemeContext";
 import cn from "classnames";
 
-export const OrdersPageHeader = ({ title, className }) => {
-  const [isVisibleDropdown, setIsVisibleDropdown] = useState(false);
-  const handleToggleVisibility = () => {
-    setIsVisibleDropdown(!isVisibleDropdown);
-  };
+export const OrdersPageHeader = ({ className }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const { theme, toggleTheme } = useContext(ThemeContext);
   const handleThemeSelection = (currentTheme) => {
     toggleTheme(currentTheme);
-    handleToggleVisibility();
+    setIsOpen(!isOpen);
   };
 
   const button = (
@@ -36,7 +33,7 @@ export const OrdersPageHeader = ({ title, className }) => {
       buttonStyle={BUTTON_STYLE.reverse}
       iconClassName={styles.icon}
       icon={isDarkTheme(theme) ? ICON_MAP.moon : ICON_MAP.sun}
-      onClick={handleToggleVisibility}
+      onClick={() => setIsOpen(!isOpen)}
     >
       {isDarkTheme(theme) ? "Темная тема" : "Светлая тема"}
     </Button>
@@ -71,8 +68,8 @@ export const OrdersPageHeader = ({ title, className }) => {
   );
 
   return (
-    <PageHeader title={title} className={className}>
-      <Dropdown trigger={button} overlay={overlay} isOpen={isVisibleDropdown} />
+    <PageHeader title={"Список заказов"} className={className}>
+      <Dropdown trigger={button} overlay={overlay} isOpen={isOpen} />
     </PageHeader>
   );
 };

@@ -14,8 +14,9 @@ import {
 import { ICON_MAP } from "../../../../shared/Icon/Icon";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
 import cn from "classnames";
-import { orders } from "./orders";
 import { StatusCell } from "./StatusCell/StatusCell";
+import { useSelector } from "react-redux";
+import { getOrdersData } from "../../model/orders/ordersSelectors";
 
 const noop = () => {};
 const STATUS_NAME = {
@@ -28,6 +29,8 @@ const STATUS_NAME = {
 };
 
 export const OrdersTable = () => {
+  const orders = useSelector(getOrdersData);
+
   return (
     <Table>
       <TableHeader>

@@ -5,6 +5,9 @@ import { Input } from "../../../../shared/Input/Input";
 import { Dropdown } from "../../../../shared/Dropdown/Dropdown";
 import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
+import { useDispatch, useSelector } from "react-redux";
+import { getStatusValues } from "../../model/ordersFilter/ordersFilterSelectors";
+import { changeStatusValue } from "../../model/ordersFilter/ordersFilterSlice";
 
 const STATUS_MAP = {
   new: "Новый",
@@ -21,14 +24,9 @@ export const StatusFilter = ({ className }) => {
     setIsVisibleDropdown(!isVisibleDropdown);
   };
 
-  const [statusValues, setStatusValues] = useState([]);
-
-  const handleChangeStatusValues = (el) => {
-    const newStatusValues = statusValues.includes(el)
-      ? statusValues.filter((item) => item !== el)
-      : [...statusValues, el];
-    setStatusValues(newStatusValues);
-  };
+  const dispatch = useDispatch();
+  const statusValues = useSelector(getStatusValues);
+  const handleChangeStatusValues = (el) => dispatch(changeStatusValue(el));
 
   const checkedStatuses = useMemo(() => {
     const statuses = statusValues.map((status) => STATUS_MAP[status]);
