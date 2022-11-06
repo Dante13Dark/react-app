@@ -72,7 +72,7 @@ export const OrdersPageHeader = ({ title, className }) => {
 
   return (
     <PageHeader title={title} className={className}>
-      <Dropdown trigger={button} overlay={overlay} />
+      <Dropdown trigger={button} overlay={overlay} isOpen={isVisibleDropdown} />
     </PageHeader>
   );
 };

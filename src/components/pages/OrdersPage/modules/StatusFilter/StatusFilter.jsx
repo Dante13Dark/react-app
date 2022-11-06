@@ -66,7 +66,7 @@ export const StatusFilter = ({ className }) => {
             text={STATUS_MAP[key]}
             value={key}
             onClick={() => handleChangeStatusValues(key)}
-            checked={statusValues[key]}
+            checked={statusValues.includes(key)}
             className={styles.control}
             iconClassName={styles.control_icon}
           />
@@ -74,5 +74,12 @@ export const StatusFilter = ({ className }) => {
       ))}
     </div>
   );
-  return <Dropdown trigger={input} overlay={overlay} className={className} />;
+  return (
+    <Dropdown
+      trigger={input}
+      overlay={overlay}
+      isOpen={isVisibleDropdown}
+      className={className}
+    />
+  );
 };
