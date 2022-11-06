@@ -1,0 +1,6 @@
+._ {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--text-reverse);
+}

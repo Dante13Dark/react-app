@@ -43,7 +43,13 @@ export const StatusFilter = ({ className }) => {
   }, [statusValues]);
 
   const classNames = cn(styles._, className);
-  const postfixIcon = <Icon name={ICON_MAP.vArrow} className={styles.icon} />;
+  const postfixIcon = (
+    <Icon
+      name={ICON_MAP.vArrow}
+      className={styles.icon}
+      onClick={handleToggleVisibility}
+    />
+  );
   const input = (
     <div className={classNames}>
       <Input
@@ -66,7 +72,7 @@ export const StatusFilter = ({ className }) => {
             text={STATUS_MAP[key]}
             value={key}
             onClick={() => handleChangeStatusValues(key)}
-            checked={statusValues[key]}
+            checked={statusValues.includes(key)}
             className={styles.control}
             iconClassName={styles.control_icon}
           />
@@ -74,5 +80,12 @@ export const StatusFilter = ({ className }) => {
       ))}
     </div>
   );
-  return <Dropdown trigger={input} overlay={overlay} className={className} />;
+  return (
+    <Dropdown
+      trigger={input}
+      overlay={overlay}
+      isOpen={isVisibleDropdown}
+      className={className}
+    />
+  );
 };

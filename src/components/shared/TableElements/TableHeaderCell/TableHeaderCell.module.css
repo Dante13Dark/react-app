@@ -1,0 +1,18 @@
+._ {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.25rem;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  color: var(--text-reverse);
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+._ .icon {
+  fill: var(--text-reverse);
+  stroke: var(--text-reverse);
+}

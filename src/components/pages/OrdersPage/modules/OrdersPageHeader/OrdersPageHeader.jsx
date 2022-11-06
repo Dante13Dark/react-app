@@ -54,7 +54,7 @@ export const OrdersPageHeader = ({ title, className }) => {
         onClick={() => handleThemeSelection(COLOR_THEMES.light)}
         className={styles.dialog_Button}
       >
-        {"Светлая"}
+        Светлая
       </Button>
       <Button
         size={BUTTON_SIZE.small}
@@ -65,14 +65,14 @@ export const OrdersPageHeader = ({ title, className }) => {
         onClick={() => handleThemeSelection(COLOR_THEMES.dark)}
         className={styles.dialog_Button}
       >
-        {"Темная"}
+        Темная
       </Button>
     </div>
   );
 
   return (
     <PageHeader title={title} className={className}>
-      <Dropdown trigger={button} overlay={overlay} />
+      <Dropdown trigger={button} overlay={overlay} isOpen={isVisibleDropdown} />
     </PageHeader>
   );
 };
