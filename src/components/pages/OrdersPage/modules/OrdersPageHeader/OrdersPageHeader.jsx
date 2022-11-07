@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import { PageHeader } from "../../../../shared/PageHeader/PageHeader";
 import {
@@ -18,12 +18,9 @@ import {
 import cn from "classnames";
 
 export const OrdersPageHeader = ({ className }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const { theme, toggleTheme } = useContext(ThemeContext);
   const handleThemeSelection = (currentTheme) => {
     toggleTheme(currentTheme);
-    setIsOpen(!isOpen);
   };
 
   const button = (
@@ -33,7 +30,6 @@ export const OrdersPageHeader = ({ className }) => {
       buttonStyle={BUTTON_STYLE.reverse}
       iconClassName={styles.icon}
       icon={isDarkTheme(theme) ? ICON_MAP.moon : ICON_MAP.sun}
-      onClick={() => setIsOpen(!isOpen)}
     >
       {isDarkTheme(theme) ? "Темная тема" : "Светлая тема"}
     </Button>
@@ -69,7 +65,7 @@ export const OrdersPageHeader = ({ className }) => {
 
   return (
     <PageHeader title={"Список заказов"} className={className}>
-      <Dropdown trigger={button} overlay={overlay} isOpen={isOpen} />
+      <Dropdown trigger={button} overlay={overlay} />
     </PageHeader>
   );
 };

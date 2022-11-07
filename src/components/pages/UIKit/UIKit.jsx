@@ -285,64 +285,70 @@ const Dropdowns = () => (
         <ul className={dropdownStyles.list}>
           <li className={styles.item}>
             <Radio
-              text={"Новый"}
               name={"dropdown-selector"}
               value={"new"}
               isTextOnly={true}
               className={styles.control}
               iconClassName={styles.control__icon}
-            />
+            >
+              Новый
+            </Radio>
           </li>
           <li className={styles.item}>
             <Radio
-              text={"Расчет"}
               name={"dropdown-selector"}
               value={"calculation"}
               isTextOnly={true}
               checked
               className={styles.control}
               iconClassName={styles.control__icon}
-            />
+            >
+              Расчет
+            </Radio>
           </li>
           <li className={styles.item}>
             <Radio
-              text={"Подтвержден"}
               name={"dropdown-selector"}
               value={"accepted"}
               isTextOnly={true}
               className={styles.control}
               iconClassName={styles.control__icon}
-            />
+            >
+              Подтвержден
+            </Radio>
           </li>
           <li className={styles.item}>
             <Radio
-              text={"Отложен"}
               name={"dropdown-selector"}
               value={"paused"}
               isTextOnly={true}
               className={styles.control}
               iconClassName={styles.control__icon}
-            />
+            >
+              Отложен
+            </Radio>
           </li>
           <li className={styles.item}>
             <Radio
-              text={"Выполнен"}
               name={"dropdown-selector"}
               value={"done"}
               isTextOnly={true}
               className={styles.control}
               iconClassName={styles.control__icon}
-            />
+            >
+              Выполнен
+            </Radio>
           </li>
           <li className={styles.item}>
             <Radio
-              text={"Отменен"}
               name={"dropdown-selector"}
               value={"cancelled"}
               isTextOnly={true}
               className={styles.control}
               iconClassName={styles.control__icon}
-            />
+            >
+              Отменен
+            </Radio>
           </li>
         </ul>
       </form>

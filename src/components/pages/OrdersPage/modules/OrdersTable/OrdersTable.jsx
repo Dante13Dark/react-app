@@ -5,18 +5,11 @@ import { TableRow } from "../../../../shared/TableElements/TableRow/TableRow";
 import { TableHeaderCell } from "../../../../shared/TableElements/TableHeaderCell/TableHeaderCell";
 import { TableBody } from "../../../../shared/TableElements/TableBody/TableBody";
 import { TableCell } from "../../../../shared/TableElements/TableCell/TableCell";
-import { TableFooter } from "../../../../shared/TableElements/TableFooter/TableFooter";
-import {
-  Button,
-  BUTTON_SIZE,
-  BUTTON_STYLE,
-} from "../../../../shared/Button/Button";
-import { ICON_MAP } from "../../../../shared/Icon/Icon";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
-import cn from "classnames";
 import { StatusCell } from "./StatusCell/StatusCell";
 import { useSelector } from "react-redux";
 import { getOrdersData } from "../../model/orders/ordersSelectors";
+import { OrdersTableFooter } from "./OrdersTableFooter/OrdersTableFooter";
 
 const noop = () => {};
 const STATUS_NAME = {
@@ -75,47 +68,7 @@ export const OrdersTable = () => {
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <div className={styles.footer__buttonsBlock}>
-          <span className={styles.footer__text}>Выбрано записей: 5</span>
-          <Button
-            size={BUTTON_SIZE.small}
-            buttonStyle={BUTTON_STYLE.primary}
-            icon={ICON_MAP.pencil}
-          >
-            Изменить статус
-          </Button>
-          <Button
-            size={BUTTON_SIZE.small}
-            buttonStyle={cn(BUTTON_STYLE.danger)}
-            icon={ICON_MAP.bin}
-          >
-            Удалить
-          </Button>
-        </div>
-        <div className={styles.footer__pages}>
-          <div className={styles.footer__pagination}>
-            <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-              1
-            </Button>
-            <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-              2
-            </Button>
-            <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-              3
-            </Button>
-            <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-              ...
-            </Button>
-            <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-              18
-            </Button>
-          </div>
-          <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-            #
-          </Button>
-        </div>
-      </TableFooter>
+      <OrdersTableFooter />
     </Table>
   );
 };

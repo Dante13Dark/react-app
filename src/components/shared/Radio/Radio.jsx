@@ -6,7 +6,7 @@ const noop = () => {};
 
 export const Radio = ({
   className,
-  text,
+  children,
   name,
   value,
   checked,
@@ -32,7 +32,7 @@ export const Radio = ({
         onChange={onChange}
       />
       {!isTextOnly && <Icon name={ICON_MAP.dot} className={styles.icon} />}
-      {text && <span className={textClassNames}>{text}</span>}
+      {children && <span className={textClassNames}>{children}</span>}
     </label>
   );
 };
