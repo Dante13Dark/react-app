@@ -1,55 +1,67 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  searchValue: "",
+const filters = {
   dateFromValue: "",
   dateToValue: "",
   statusValues: [],
   amountFromValue: "",
   amountToValue: "",
 };
+const initialState = {
+  searchValue: "",
+  selectedFilters: filters,
+  activeFilters: filters,
+};
 
 export const ordersFilterSlice = createSlice({
   name: "ordersFilter",
   initialState,
   reducers: {
+    applyFilters: (state) => {
+      state.activeFilters = state.selectedFilters;
+    },
     changeSearchValue(state, action) {
       state.searchValue = action.payload;
     },
     resetSearchValue(state) {
-      state.searchValue = "";
+      state.selectedFilters.searchValue = "";
     },
     changeDateFromValue(state, action) {
-      state.dateFromValue = action.payload;
+      state.selectedFilters.dateFromValue = action.payload;
     },
     resetDateFromValue(state) {
-      state.dateFromValue = "";
+      state.selectedFilters.dateFromValue = "";
     },
     changeDateToValue(state, action) {
-      state.dateToValue = action.payload;
+      state.selectedFilters.dateToValue = action.payload;
     },
     resetDateToValue(state) {
-      state.dateToValue = "";
+      state.selectedFilters.dateToValue = "";
     },
     changeStatusValue(state, action) {
-      state.statusValues = state.statusValues.includes(action.payload)
-        ? state.statusValues.filter((item) => item !== action.payload)
-        : [...state.statusValues, action.payload];
+      state.selectedFilters.statusValues =
+        state.selectedFilters.statusValues.includes(action.payload)
+          ? state.selectedFilters.statusValues.filter(
+              (item) => item !== action.payload
+            )
+          : [...state.selectedFilters.statusValues, action.payload];
     },
     changeAmountFromValue(state, action) {
-      state.amountFromValue = action.payload;
+      state.selectedFilters.amountFromValue = action.payload;
     },
     resetAmountFromValue(state) {
-      state.amountFromValue = "";
+      state.selectedFilters.amountFromValue = "";
     },
     changeAmountToValue(state, action) {
-      state.amountToValue = action.payload;
+      state.selectedFilters.amountToValue = action.payload;
     },
     resetAmountToValue(state) {
-      state.amountToValue = "";
+      state.selectedFilters.amountToValue = "";
     },
-    resetFilters() {
-      return initialState;
+    resetFilters(state) {
+      state.searchValue = "";
+      state.selectedFilters = filters;
+      state.activeFilters = filters;
     },
   },
 });
@@ -67,6 +79,7 @@ export const {
   changeAmountToValue,
   resetAmountToValue,
   resetFilters,
+  applyFilters,
 } = ordersFilterSlice.actions;
 
 export default ordersFilterSlice.reducer;

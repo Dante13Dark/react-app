@@ -16,6 +16,7 @@ import {
   changeSearchValue,
   resetSearchValue,
   resetFilters,
+  applyFilters,
 } from "../../model/ordersFilter/ordersFilterSlice";
 
 export const Filter = () => {
@@ -31,7 +32,11 @@ export const Filter = () => {
     dispatch(changeSearchValue(e.target.value));
   const handleSearchbarReset = () => dispatch(resetSearchValue());
 
-  const handleResetFilters = () => dispatch(resetFilters());
+  const handleResetFilters = () => {
+    dispatch(resetFilters());
+  };
+
+  const handleApplyFilters = () => dispatch(applyFilters());
 
   return (
     <div className={styles._}>
@@ -82,6 +87,7 @@ export const Filter = () => {
             size={BUTTON_SIZE.medium}
             buttonStyle={BUTTON_STYLE.reverse}
             className={styles.applyFilterButton}
+            onClick={handleApplyFilters}
           >
             Применить
           </Button>

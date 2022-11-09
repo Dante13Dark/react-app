@@ -2,11 +2,19 @@ export const getOrdersData = (state) => state.orders.allOrders;
 export const getPageNumber = (state) => state.orders.page;
 export const getPageLimit = (state) => state.orders.pageLimit;
 export const getSearchValue = (state) => state.filters.searchValue;
-export const getDateFromValue = (state) => state.filters.dateFromValue;
-export const getDateToValue = (state) => state.filters.dateToValue;
-export const getStatusValues = (state) => state.filters.statusValues;
-export const getAmountFromValue = (state) => state.filters.amountFromValue;
-export const getAmountToValue = (state) => state.filters.amountToValue;
+export const getDateFromValue = (state) =>
+  state.filters.selectedFilters.dateFromValue;
+export const getDateToValue = (state) =>
+  state.filters.selectedFilters.dateToValue;
+export const getStatusValues = (state) =>
+  state.filters.selectedFilters.statusValues;
+export const getAmountFromValue = (state) =>
+  state.filters.selectedFilters.amountFromValue;
+export const getAmountToValue = (state) =>
+  state.filters.selectedFilters.amountToValue;
+
+const getActiveFilterValue = (state, value) =>
+  state.filters.activeFilters[value];
 
 export const getCurrentPageOrders = (state) => {
   const orders = getFilteredOrders(state);
@@ -14,23 +22,33 @@ export const getCurrentPageOrders = (state) => {
   const pageLimit = getPageLimit(state);
   const beginIndex = pageLimit * (page - 1);
   const endIndex = beginIndex + pageLimit;
-  const result = orders.slice(beginIndex, endIndex);
-  return result;
+  return orders.slice(beginIndex, endIndex);
+};
+
+const FILTER_VALUE = {
+  dateFrom: "dateFromValue",
+  dateTo: "dateToValue",
+  statusValues: "statusValues",
+  amountFrom: "amountFromValue",
+  amountTo: "amountToValue",
 };
 
 export const getFilteredOrders = (state) => {
   let orders = getOrdersData(state);
   const searchValue = getSearchValue(state);
-  const dateFrom = getDateFromValue(state);
-  const dateTo = getDateToValue(state);
-  const statusValues = getStatusValues(state);
-  const amountFrom = getAmountFromValue(state);
-  const amountTo = getAmountToValue(state);
 
+  orders = orders.filter((order) => {
+    return searchValue ? filterBySearchValue(order, searchValue) : true;
+  });
+
+  const dateFrom = getActiveFilterValue(state, FILTER_VALUE.dateFrom);
+  const dateTo = getActiveFilterValue(state, FILTER_VALUE.dateTo);
+  const statusValues = getActiveFilterValue(state, FILTER_VALUE.statusValues);
+  const amountFrom = getActiveFilterValue(state, FILTER_VALUE.amountFrom);
+  const amountTo = getActiveFilterValue(state, FILTER_VALUE.amountTo);
+
+  // Остальные фильтры по кнопке
   return orders.filter((order) => {
-    const isSearchFilter = searchValue
-      ? filterBySearchValue(order, searchValue)
-      : true;
     const isDateFromFilter = dateFrom
       ? filterByDateFrom(order, dateFrom)
       : true;
@@ -46,7 +64,6 @@ export const getFilteredOrders = (state) => {
       : true;
 
     return (
-      isSearchFilter &&
       isDateFromFilter &&
       isDateToFilter &&
       isStatusFilter &&
@@ -76,8 +93,17 @@ function filterByDateTo(order, dateTo) {
   return date <= dateEnd;
 }
 
+const STATUS_MAP = {
+  new: "new",
+  calculation: "calculation",
+  confirmed: "accepted",
+  postponed: "paused",
+  completed: "done",
+  declined: "cancelled",
+};
+
 function filterByStatus(order, selectedStatuses) {
-  return selectedStatuses.includes(order.status);
+  return selectedStatuses.includes(STATUS_MAP[order.status]);
 }
 
 function filterByAmountFrom(order, amountFrom) {
