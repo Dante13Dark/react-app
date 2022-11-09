@@ -8,6 +8,7 @@ const initialState = {
   amountFromValue: "",
   amountToValue: "",
 };
+
 export const ordersFilterSlice = createSlice({
   name: "ordersFilter",
   initialState,
@@ -16,7 +17,6 @@ export const ordersFilterSlice = createSlice({
       state.searchValue = action.payload;
     },
     resetSearchValue(state) {
-      console.log("resetSearch");
       state.searchValue = "";
     },
     changeDateFromValue(state, action) {

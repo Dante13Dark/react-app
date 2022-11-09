@@ -11,7 +11,7 @@ import { StatusFilter } from "../StatusFilter/StatusFilter";
 import { AmountFilter } from "../AmountFilter/AmountFilter";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchValue } from "../../model/ordersFilter/ordersFilterSelectors";
+import { getSearchValue } from "../../model/orders/ordersSelectors";
 import {
   changeSearchValue,
   resetSearchValue,

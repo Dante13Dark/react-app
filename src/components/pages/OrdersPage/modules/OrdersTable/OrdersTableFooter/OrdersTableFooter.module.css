@@ -9,16 +9,6 @@
   color: var(--style-primary);
 }
 
-.pages {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.pagination {
-  display: flex;
-  gap: 0.25rem;
-}
-
 .list {
   padding: 0.5rem 0;
 }

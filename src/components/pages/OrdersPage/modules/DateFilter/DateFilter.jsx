@@ -11,7 +11,7 @@ import {
 import {
   getDateFromValue,
   getDateToValue,
-} from "../../model/ordersFilter/ordersFilterSelectors";
+} from "../../model/orders/ordersSelectors";
 
 export const DateFilter = ({ className }) => {
   const dispatch = useDispatch();

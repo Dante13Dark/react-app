@@ -1,0 +1,21 @@
+.pages {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.pagination {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.dropdown {
+  left: unset;
+  bottom: 1.75rem;
+  top: unset;
+  right: 0;
+}
+
+.input {
+  padding: 1rem;
+  gap: 0.5rem;
+}

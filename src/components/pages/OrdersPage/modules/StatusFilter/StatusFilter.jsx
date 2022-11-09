@@ -6,7 +6,7 @@ import { Dropdown } from "../../../../shared/Dropdown/Dropdown";
 import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
-import { getStatusValues } from "../../model/ordersFilter/ordersFilterSelectors";
+import { getStatusValues } from "../../model/orders/ordersSelectors";
 import { changeStatusValue } from "../../model/ordersFilter/ordersFilterSlice";
 
 export const STATUS_MAP = {

@@ -10,6 +10,7 @@ import { Radio } from "../../../../../shared/Radio/Radio";
 import { Dropdown } from "../../../../../shared/Dropdown/Dropdown";
 import cn from "classnames";
 import { STATUS_MAP } from "../../StatusFilter/StatusFilter";
+import { Pagination } from "./Pagination/Pagination";
 
 export const OrdersTableFooter = () => {
   const changeStatusTrigger = (
@@ -75,32 +76,7 @@ export const OrdersTableFooter = () => {
           className={cn(styles.dropdown, styles.dialog)}
         />
       </div>
-      <div className={styles.pages}>
-        <div className={styles.pagination}>
-          <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-            1
-          </Button>
-          <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-            2
-          </Button>
-          <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-            3
-          </Button>
-          <Button
-            size={BUTTON_SIZE.small}
-            buttonStyle={BUTTON_STYLE.reverse}
-            disabled
-          >
-            ...
-          </Button>
-          <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-            18
-          </Button>
-        </div>
-        <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-          #
-        </Button>
-      </div>
+      <Pagination />
     </TableFooter>
   );
 };

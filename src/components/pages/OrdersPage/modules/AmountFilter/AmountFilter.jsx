@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAmountFromValue,
   getAmountToValue,
-} from "../../model/ordersFilter/ordersFilterSelectors";
+} from "../../model/orders/ordersSelectors";
 import {
   changeAmountFromValue,
   changeAmountToValue,

@@ -8,8 +8,8 @@ import { TableCell } from "../../../../shared/TableElements/TableCell/TableCell"
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
 import { StatusCell } from "./StatusCell/StatusCell";
 import { useSelector } from "react-redux";
-import { getOrdersData } from "../../model/orders/ordersSelectors";
 import { OrdersTableFooter } from "./OrdersTableFooter/OrdersTableFooter";
+import { getCurrentPageOrders } from "../../model/orders/ordersSelectors";
 
 const noop = () => {};
 const STATUS_NAME = {
@@ -22,7 +22,8 @@ const STATUS_NAME = {
 };
 
 export const OrdersTable = () => {
-  const orders = useSelector(getOrdersData);
+  console.log("render");
+  const orders = useSelector(getCurrentPageOrders);
 
   return (
     <Table>
