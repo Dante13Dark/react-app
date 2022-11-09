@@ -4,7 +4,7 @@ import { orders } from "./orders";
 const initialState = {
   allOrders: orders,
   page: 1,
-  pageLimit: 15,
+  pageLimit: 5,
 };
 
 const ordersSlice = createSlice({

@@ -20,7 +20,7 @@ export const Pagination = () => {
   const dispatch = useDispatch();
   const handlePageClick = (index) => dispatch(setCurrentPage(index));
   const filteredOrders = useSelector(getFilteredOrders);
-  const page = useSelector(getPageNumber);
+  const selectedPage = useSelector(getPageNumber);
   const pageLimit = useSelector(getPageLimit);
   const pageCount = Math.ceil(filteredOrders.length / pageLimit);
 
@@ -43,25 +43,25 @@ export const Pagination = () => {
     };
   });
 
+  const pages = calculatePages(selectedPage, pageCount);
+
   return (
     <div className={styles.pages}>
       <div className={styles.pagination}>
-        {[...Array(pageCount)].map((e, i) => {
-          const index = i + 1;
-
+        {pages.map((p, index) => {
           return (
             <Button
-              key={i + 1}
+              key={index}
               size={BUTTON_SIZE.small}
               buttonStyle={
-                Number(index) === Number(page)
+                Number(p) === Number(selectedPage)
                   ? BUTTON_STYLE.primary
                   : BUTTON_STYLE.reverse
               }
-              onClick={() => handlePageClick(index)}
-              disabled={Number(index) === Number(page)}
+              onClick={() => handlePageClick(p)}
+              disabled={Number(p) === Number(selectedPage) || p === "..."}
             >
-              {index}
+              {p}
             </Button>
           );
         })}
@@ -97,3 +97,42 @@ export const Pagination = () => {
     </div>
   );
 };
+
+function calculatePages(activePage, pageCount) {
+  let pages = [activePage];
+  if (pageCount <= 7) {
+    pages = Array.from({ length: pageCount }, (_, i) => i + 1);
+  } else {
+    const diffBefore = activePage - 1;
+    const diffAfter = pageCount - activePage;
+    if (diffBefore >= 3) {
+      if (activePage === pageCount) {
+        pages.unshift(1, "...", activePage - 2, activePage - 1);
+      } else {
+        pages.unshift(1, "...", activePage - 1);
+      }
+    } else if (diffBefore === 2) {
+      pages.unshift(1, pages - 1);
+    } else if (diffBefore === 1) {
+      pages.unshift(1);
+    }
+
+    if (diffAfter >= 3) {
+      if (activePage === 1) {
+        pages.push(
+          Number(activePage) + Number(1),
+          Number(activePage) + Number(2),
+          "...",
+          pageCount
+        );
+      } else {
+        pages.push(Number(activePage) + Number(1), "...", pageCount);
+      }
+    } else if (diffAfter === 2) {
+      pages.push(Number(activePage) + Number(1), pageCount);
+    } else if (diffAfter === 1) {
+      pages.push(pageCount);
+    }
+  }
+  return pages;
+}
