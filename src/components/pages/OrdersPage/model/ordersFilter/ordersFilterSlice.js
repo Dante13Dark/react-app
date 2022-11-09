@@ -7,16 +7,27 @@ const filters = {
   amountFromValue: "",
   amountToValue: "",
 };
+
 const initialState = {
   searchValue: "",
   selectedFilters: filters,
   activeFilters: filters,
+  sort: {
+    sortType: "date",
+    isSortAscending: true,
+  },
 };
 
 export const ordersFilterSlice = createSlice({
   name: "ordersFilter",
   initialState,
   reducers: {
+    setSortType: (state, action) => {
+      state.sort.sortType = action.payload;
+    },
+    setSortDirection: (state, action) => {
+      state.sort.isSortAscending = action.payload;
+    },
     applyFilters: (state) => {
       state.activeFilters = state.selectedFilters;
     },
@@ -24,7 +35,7 @@ export const ordersFilterSlice = createSlice({
       state.searchValue = action.payload;
     },
     resetSearchValue(state) {
-      state.selectedFilters.searchValue = "";
+      state.searchValue = "";
     },
     changeDateFromValue(state, action) {
       state.selectedFilters.dateFromValue = action.payload;
@@ -80,6 +91,8 @@ export const {
   resetAmountToValue,
   resetFilters,
   applyFilters,
+  setSortType,
+  setSortDirection,
 } = ordersFilterSlice.actions;
 
 export default ordersFilterSlice.reducer;

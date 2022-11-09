@@ -1,4 +1,8 @@
 export const getOrdersData = (state) => state.orders.allOrders;
+
+export const getSortType = (state) => state.filters.sort.sortType;
+export const getSortDirection = (state) => state.filters.sort.isSortAscending;
+
 export const getPageNumber = (state) => state.orders.page;
 export const getPageLimit = (state) => state.orders.pageLimit;
 export const getSearchValue = (state) => state.filters.searchValue;
@@ -16,15 +20,6 @@ export const getAmountToValue = (state) =>
 const getActiveFilterValue = (state, value) =>
   state.filters.activeFilters[value];
 
-export const getCurrentPageOrders = (state) => {
-  const orders = getFilteredOrders(state);
-  const page = getPageNumber(state);
-  const pageLimit = getPageLimit(state);
-  const beginIndex = pageLimit * (page - 1);
-  const endIndex = beginIndex + pageLimit;
-  return orders.slice(beginIndex, endIndex);
-};
-
 const FILTER_VALUE = {
   dateFrom: "dateFromValue",
   dateTo: "dateToValue",
@@ -33,10 +28,57 @@ const FILTER_VALUE = {
   amountTo: "amountToValue",
 };
 
+export const getCurrentPageOrders = (state) => {
+  const orders = getSortedOrders(state);
+  const page = getPageNumber(state);
+  const pageLimit = getPageLimit(state);
+  const beginIndex = pageLimit * (page - 1);
+  const endIndex = beginIndex + pageLimit;
+  return orders.slice(beginIndex, endIndex);
+};
+
+const getSortedOrders = (state) => {
+  const sortType = getSortType(state);
+  const isSortAscending = getSortDirection(state);
+  let orders = getFilteredOrders(state);
+  const direction = isSortAscending ? -1 : 1;
+  switch (sortType) {
+    case "date":
+      return orders.sort((a, b) => {
+        const aDate = getDate(a.date);
+        const bDate = getDate(b.date);
+        return (aDate - bDate) * direction;
+      });
+    case "status":
+      return orders.sort(
+        (a, b) =>
+          (STATUS_PRIORITY[a.status] - STATUS_PRIORITY[b.status]) * direction
+      );
+    case "count":
+      return orders.sort((a, b) => (a.amount - b.amount) * direction);
+    case "amount":
+      return orders.sort(
+        (a, b) => (parseSum(a.sum) - parseSum(b.sum)) * direction
+      );
+    default:
+      return orders;
+  }
+};
+
+const STATUS_PRIORITY = {
+  completed: 6,
+  calculation: 5,
+  confirmed: 4,
+  new: 3,
+  postponed: 2,
+  declined: 1,
+};
+
 export const getFilteredOrders = (state) => {
   let orders = getOrdersData(state);
   const searchValue = getSearchValue(state);
 
+  // Поиск по значению работает всегда
   orders = orders.filter((order) => {
     return searchValue ? filterBySearchValue(order, searchValue) : true;
   });
@@ -74,26 +116,29 @@ export const getFilteredOrders = (state) => {
 };
 
 function filterBySearchValue(order, searchValue) {
-  return order.customer.includes(searchValue);
+  return (
+    order.customer.includes(searchValue) ||
+    String(order.id).includes(searchValue)
+  );
 }
 
 function filterByDateFrom(order, dateFrom) {
-  const [d, m, y] = order.date.slice(0, 10).split(".");
-  const [df, mf, yf] = dateFrom.split(".");
-  const date = Date.parse(`${y}-${m}-${d}`);
-  const dateStart = Date.parse(`${yf}-${mf}-${df}`);
+  const [dd, mm, yy] = dateFrom.split(".");
+  const date = getDate(order.date);
+  const dateStart = new Date(yy, mm, dd);
+  console.log(dateStart);
+  console.log(date);
   return dateStart <= date;
 }
 
 function filterByDateTo(order, dateTo) {
-  const [d, m, y] = order.date.slice(0, 10).split(".");
-  const [dt, mt, yt] = dateTo.split(".");
-  const date = Date.parse(`${y}-${m}-${d}`);
-  const dateEnd = Date.parse(`${yt}-${mt}-${dt}`);
+  const [dd, mm, yy] = dateTo.split(".");
+  const date = getDate(order.date);
+  const dateEnd = new Date(yy, mm, dd);
   return date <= dateEnd;
 }
 
-const STATUS_MAP = {
+const JSON_TO_APP_STATUS_MAP = {
   new: "new",
   calculation: "calculation",
   confirmed: "accepted",
@@ -103,13 +148,28 @@ const STATUS_MAP = {
 };
 
 function filterByStatus(order, selectedStatuses) {
-  return selectedStatuses.includes(STATUS_MAP[order.status]);
+  return selectedStatuses.includes(JSON_TO_APP_STATUS_MAP[order.status]);
 }
 
 function filterByAmountFrom(order, amountFrom) {
-  return parseInt(String(order.sum).replace(/\s+/g, ""), 10) >= amountFrom;
+  return parseSum(order.sum) >= amountFrom;
 }
 
 function filterByAmountTo(order, amountTo) {
-  return parseInt(String(order.sum).replace(/\s+/g, ""), 10) <= amountTo;
+  return parseSum(order.sum) <= amountTo;
+}
+
+// Helpers
+
+function parseSum(sum) {
+  return parseInt(String(sum).replace(/\s+/g, ""), 10);
+}
+
+function getDate(dateString) {
+  const date = new Date();
+  const [dd, mm, yy] = dateString.slice(0, 10).split(".");
+  date.setFullYear(yy, mm, dd);
+  const [h, m] = dateString.slice(11).split(":");
+  date.setHours(h, m);
+  return date;
 }

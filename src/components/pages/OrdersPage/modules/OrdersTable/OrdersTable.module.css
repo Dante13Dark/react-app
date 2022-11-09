@@ -31,3 +31,11 @@
 .client_cell {
   width: 100%;
 }
+
+.selected {
+  background: var(--shadow);
+}
+
+.icon_reverse {
+  transform: rotate(180deg);
+}

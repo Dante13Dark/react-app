@@ -7,11 +7,19 @@ import { TableBody } from "../../../../shared/TableElements/TableBody/TableBody"
 import { TableCell } from "../../../../shared/TableElements/TableCell/TableCell";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
 import { StatusCell } from "./StatusCell/StatusCell";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { OrdersTableFooter } from "./OrdersTableFooter/OrdersTableFooter";
-import { getCurrentPageOrders } from "../../model/orders/ordersSelectors";
+import {
+  getCurrentPageOrders,
+  getSortDirection,
+  getSortType,
+} from "../../model/orders/ordersSelectors";
+import {
+  setSortDirection,
+  setSortType,
+} from "../../model/ordersFilter/ordersFilterSlice";
+import cn from "classnames";
 
-const noop = () => {};
 const STATUS_NAME = {
   new: "Новый",
   calculation: "Расчет",
@@ -22,8 +30,19 @@ const STATUS_NAME = {
 };
 
 export const OrdersTable = () => {
-  console.log("render");
+  const dispatch = useDispatch();
+  const currentSortType = useSelector(getSortType);
+  const currentSortDirection = useSelector(getSortDirection);
   const orders = useSelector(getCurrentPageOrders);
+
+  const handleHeaderCellClick = (sortType) => {
+    if (currentSortType === sortType) {
+      dispatch(setSortDirection(!currentSortDirection));
+    } else {
+      dispatch(setSortType(sortType));
+      dispatch(setSortDirection(true));
+    }
+  };
 
   return (
     <Table>
@@ -33,16 +52,52 @@ export const OrdersTable = () => {
             <Checkbox />
           </TableHeaderCell>
           <TableHeaderCell className={styles.order_cell}>#</TableHeaderCell>
-          <TableHeaderCell className={styles.date_cell} onClick={noop}>
+          <TableHeaderCell
+            className={cn(styles.date_cell, {
+              [styles.selected]: currentSortType === "date",
+            })}
+            iconClassName={cn({
+              [styles.icon_reverse]:
+                currentSortType === "date" && currentSortDirection === false,
+            })}
+            onClick={() => handleHeaderCellClick("date")}
+          >
             Дата
           </TableHeaderCell>
-          <TableHeaderCell className={styles.status_cell} onClick={noop}>
+          <TableHeaderCell
+            className={cn(styles.status_cell, {
+              [styles.selected]: currentSortType === "status",
+            })}
+            iconClassName={cn({
+              [styles.icon_reverse]:
+                currentSortType === "status" && currentSortDirection === false,
+            })}
+            onClick={() => handleHeaderCellClick("status")}
+          >
             Статус
           </TableHeaderCell>
-          <TableHeaderCell className={styles.count_cell} onClick={noop}>
+          <TableHeaderCell
+            className={cn(styles.count_cell, {
+              [styles.selected]: currentSortType === "count",
+            })}
+            iconClassName={cn({
+              [styles.icon_reverse]:
+                currentSortType === "count" && currentSortDirection === false,
+            })}
+            onClick={() => handleHeaderCellClick("count")}
+          >
             Позиций
           </TableHeaderCell>
-          <TableHeaderCell className={styles.amount_cell} onClick={noop}>
+          <TableHeaderCell
+            className={cn(styles.amount_cell, {
+              [styles.selected]: currentSortType === "amount",
+            })}
+            iconClassName={cn({
+              [styles.icon_reverse]:
+                currentSortType === "amount" && currentSortDirection === false,
+            })}
+            onClick={() => handleHeaderCellClick("amount")}
+          >
             Сумма
           </TableHeaderCell>
           <TableHeaderCell className={styles.client_cell}>
