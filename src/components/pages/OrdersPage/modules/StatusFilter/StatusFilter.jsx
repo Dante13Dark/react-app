@@ -5,9 +5,6 @@ import { Input } from "../../../../shared/Input/Input";
 import { Dropdown } from "../../../../shared/Dropdown/Dropdown";
 import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
-import { useDispatch, useSelector } from "react-redux";
-import { getStatusValues } from "../../model/orders/ordersSelectors";
-import { changeStatusValue } from "../../model/ordersFilter/ordersFilterSlice";
 
 export const STATUS_MAP = {
   new: "Новый",
@@ -18,11 +15,11 @@ export const STATUS_MAP = {
   cancelled: "Отменен",
 };
 
-export const StatusFilter = ({ className }) => {
-  const dispatch = useDispatch();
-  const statusValues = useSelector(getStatusValues);
-  const handleChangeStatusValues = (el) => dispatch(changeStatusValue(el));
-
+export const StatusFilter = ({
+  className,
+  statusValues,
+  handleChangeStatusValues,
+}) => {
   const checkedStatuses = useMemo(() => {
     const statuses = statusValues.map((status) => STATUS_MAP[status]);
     if (

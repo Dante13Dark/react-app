@@ -1,10 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { orders } from "./orders";
+import { orders } from "../mock/orders";
 
 const initialState = {
   allOrders: orders,
-  page: 1,
-  pageLimit: 10,
 };
 
 const ordersSlice = createSlice({
@@ -17,15 +15,9 @@ const ordersSlice = createSlice({
     removeOrder: (state, action) => {
       return state.allOrders.filter((order) => order.id !== action.payload);
     },
-    setCurrentPage: (state, action) => {
-      state.page = action.payload;
-    },
-    setPageLimit: (state, action) => {
-      state.pageLimit = action.payload;
-    },
   },
 });
 
-export const { addOrder, removeOrder, setCurrentPage } = ordersSlice.actions;
+export const { addOrder, removeOrder } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

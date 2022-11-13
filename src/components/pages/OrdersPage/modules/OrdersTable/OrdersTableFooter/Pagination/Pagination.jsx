@@ -5,25 +5,26 @@ import {
   BUTTON_STYLE,
 } from "../../../../../../shared/Button/Button";
 import {
-  getFilteredOrders,
-  getPageLimit,
   getPageNumber,
+  getSortedOrders,
 } from "../../../../model/orders/ordersSelectors";
 
-import { setCurrentPage } from "../../../../model/orders/ordersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Dropdown } from "../../../../../../shared/Dropdown/Dropdown";
 import { Input } from "../../../../../../shared/Input/Input";
 import { useEffect, useState } from "react";
+import {
+  PAGE_LIMIT as pageLimit,
+  setCurrentPage,
+} from "../../../../model/ordersFilter/ordersFilterSlice";
 
 export const Pagination = () => {
   const dispatch = useDispatch();
   const handlePageClick = (index) => dispatch(setCurrentPage(index));
-  const filteredOrders = useSelector(getFilteredOrders);
+  const sortedOrders = useSelector(getSortedOrders);
   const selectedPage = useSelector(getPageNumber);
-  const pageLimit = useSelector(getPageLimit);
-  const pageCount = Math.ceil(filteredOrders.length / pageLimit);
-
+  const result = Math.ceil(sortedOrders.length / pageLimit);
+  const pageCount = result !== 0 ? result : 1;
   useEffect(() => {
     dispatch(setCurrentPage(1));
   }, [pageCount]);
@@ -106,7 +107,7 @@ function calculatePages(activePage, pageCount) {
     const diffBefore = activePage - 1;
     const diffAfter = pageCount - activePage;
     if (diffBefore >= 3) {
-      if (activePage === pageCount) {
+      if (Number(activePage) === Number(pageCount)) {
         pages.unshift(1, "...", activePage - 2, activePage - 1);
       } else {
         pages.unshift(1, "...", activePage - 1);
@@ -118,7 +119,7 @@ function calculatePages(activePage, pageCount) {
     }
 
     if (diffAfter >= 3) {
-      if (activePage === 1) {
+      if (Number(activePage) === Number(1)) {
         pages.push(
           Number(activePage) + Number(1),
           Number(activePage) + Number(2),

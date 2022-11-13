@@ -1,32 +1,18 @@
 import cn from "classnames";
 import { Input } from "../../../../shared/Input/Input";
 import styles from "./AmountFilter.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getAmountFromValue,
-  getAmountToValue,
-} from "../../model/orders/ordersSelectors";
-import {
-  changeAmountFromValue,
-  changeAmountToValue,
-  resetAmountFromValue,
-  resetAmountToValue,
-} from "../../model/ordersFilter/ordersFilterSlice";
 
-export const AmountFilter = ({ className }) => {
-  const dispatch = useDispatch();
-
-  const amountFromValue = useSelector(getAmountFromValue);
-  const handleOnChangeAmountFromValue = (e) =>
-    dispatch(changeAmountFromValue(e.target.value));
-  const handleOnResetAmountFromValue = () => dispatch(resetAmountFromValue());
-
-  const amountToValue = useSelector(getAmountToValue);
-  const handleOnChangeAmountToValue = (e) =>
-    dispatch(changeAmountToValue(e.target.value));
-  const handleOnResetAmountToValue = () => dispatch(resetAmountToValue());
+export const AmountFilter = ({
+  className,
+  onChange,
+  onReset,
+  getFilterValue,
+}) => {
+  const handleOnReset = (key) => () => onReset(key);
+  const handleOnChange = (key, event) => onChange(key)(event);
 
   const amountFilterClassNames = cn(styles._, className);
+
   return (
     <div className={amountFilterClassNames}>
       <Input
@@ -34,17 +20,17 @@ export const AmountFilter = ({ className }) => {
         placeholder="&#8381;"
         prefix="от"
         id="AmountFilterFrom"
-        onChange={handleOnChangeAmountFromValue}
-        onReset={handleOnResetAmountFromValue}
-        value={amountFromValue}
+        onChange={(event) => handleOnChange("amountFrom", event)}
+        onReset={handleOnReset("amountFrom")}
+        value={getFilterValue("amountFrom")}
       />
       <Input
         placeholder="&#8381;"
         prefix="до"
         id="AmountFilterTo"
-        onChange={handleOnChangeAmountToValue}
-        onReset={handleOnResetAmountToValue}
-        value={amountToValue}
+        onChange={(event) => handleOnChange("amountTo", event)}
+        onReset={handleOnReset("amountTo")}
+        value={getFilterValue("amountTo")}
       />
     </div>
   );

@@ -12,34 +12,34 @@ import { OrdersTableFooter } from "./OrdersTableFooter/OrdersTableFooter";
 import {
   getCurrentPageOrders,
   getSortDirection,
-  getSortType,
+  getSortField,
 } from "../../model/orders/ordersSelectors";
 import {
   setSortDirection,
-  setSortType,
+  setSortField,
 } from "../../model/ordersFilter/ordersFilterSlice";
 import cn from "classnames";
 
 const STATUS_NAME = {
   new: "Новый",
   calculation: "Расчет",
-  confirmed: "Подтвержден",
-  postponed: "Отложен",
-  completed: "Выполнен",
-  declined: "Отменен",
+  accepted: "Подтвержден",
+  paused: "Отложен",
+  done: "Выполнен",
+  cancelled: "Отменен",
 };
 
 export const OrdersTable = () => {
   const dispatch = useDispatch();
-  const currentSortType = useSelector(getSortType);
+  const currentSortField = useSelector(getSortField);
   const currentSortDirection = useSelector(getSortDirection);
   const orders = useSelector(getCurrentPageOrders);
 
-  const handleHeaderCellClick = (sortType) => {
-    if (currentSortType === sortType) {
+  const handleHeaderCellClick = (sortField) => {
+    if (currentSortField === sortField) {
       dispatch(setSortDirection(!currentSortDirection));
     } else {
-      dispatch(setSortType(sortType));
+      dispatch(setSortField(sortField));
       dispatch(setSortDirection(true));
     }
   };
@@ -54,11 +54,11 @@ export const OrdersTable = () => {
           <TableHeaderCell className={styles.order_cell}>#</TableHeaderCell>
           <TableHeaderCell
             className={cn(styles.date_cell, {
-              [styles.selected]: currentSortType === "date",
+              [styles.selected]: currentSortField === "date",
             })}
             iconClassName={cn({
               [styles.icon_reverse]:
-                currentSortType === "date" && currentSortDirection === false,
+                currentSortField === "date" && currentSortDirection === false,
             })}
             onClick={() => handleHeaderCellClick("date")}
           >
@@ -66,11 +66,11 @@ export const OrdersTable = () => {
           </TableHeaderCell>
           <TableHeaderCell
             className={cn(styles.status_cell, {
-              [styles.selected]: currentSortType === "status",
+              [styles.selected]: currentSortField === "status",
             })}
             iconClassName={cn({
               [styles.icon_reverse]:
-                currentSortType === "status" && currentSortDirection === false,
+                currentSortField === "status" && currentSortDirection === false,
             })}
             onClick={() => handleHeaderCellClick("status")}
           >
@@ -78,11 +78,11 @@ export const OrdersTable = () => {
           </TableHeaderCell>
           <TableHeaderCell
             className={cn(styles.count_cell, {
-              [styles.selected]: currentSortType === "count",
+              [styles.selected]: currentSortField === "count",
             })}
             iconClassName={cn({
               [styles.icon_reverse]:
-                currentSortType === "count" && currentSortDirection === false,
+                currentSortField === "count" && currentSortDirection === false,
             })}
             onClick={() => handleHeaderCellClick("count")}
           >
@@ -90,11 +90,11 @@ export const OrdersTable = () => {
           </TableHeaderCell>
           <TableHeaderCell
             className={cn(styles.amount_cell, {
-              [styles.selected]: currentSortType === "amount",
+              [styles.selected]: currentSortField === "amount",
             })}
             iconClassName={cn({
               [styles.icon_reverse]:
-                currentSortType === "amount" && currentSortDirection === false,
+                currentSortField === "amount" && currentSortDirection === false,
             })}
             onClick={() => handleHeaderCellClick("amount")}
           >
@@ -111,13 +111,19 @@ export const OrdersTable = () => {
             <TableCell className={styles.checkbox_cell}>
               <Checkbox />
             </TableCell>
-            <TableCell className={styles.order_cell}>{order.id}</TableCell>
-            <TableCell className={styles.date_cell}>{order.date}</TableCell>
+            <TableCell className={styles.order_cell}>
+              {order.orderNumber}
+            </TableCell>
+            <TableCell className={styles.date_cell}>
+              {formatDate(order.date)}
+            </TableCell>
             <StatusCell className={styles.status_cell} status={order.status}>
               {STATUS_NAME[order.status]}
             </StatusCell>
-            <TableCell className={styles.count_cell}>{order.amount}</TableCell>
-            <TableCell className={styles.amount_cell}>{order.sum}</TableCell>
+            <TableCell className={styles.count_cell}>{order.count}</TableCell>
+            <TableCell className={styles.amount_cell}>
+              {formatAmount(order.amount, order.currency)}
+            </TableCell>
             <TableCell className={styles.client_cell}>
               {order.customer}
             </TableCell>
@@ -128,3 +134,27 @@ export const OrdersTable = () => {
     </Table>
   );
 };
+
+function formatDate(dateString) {
+  const formatter = Intl.DateTimeFormat("ru-RU", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+  const date = new Date(dateString);
+  return formatter.format(date);
+}
+
+function formatAmount(amount, currency) {
+  const formatter = new Intl.NumberFormat("ru-RU", {
+    style: "currency",
+    currency: currency,
+
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
+
+  return formatter.format(amount);
+}

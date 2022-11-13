@@ -13,30 +13,61 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearchValue } from "../../model/orders/ordersSelectors";
 import {
-  changeSearchValue,
-  resetSearchValue,
+  setSearchValue,
   resetFilters,
-  applyFilters,
+  setFilter,
 } from "../../model/ordersFilter/ordersFilterSlice";
 
+const initialState = {
+  dateFrom: "",
+  dateTo: "",
+  statusValues: [],
+  amountFrom: "",
+  amountTo: "",
+};
+
 export const Filter = () => {
+  const dispatch = useDispatch();
+
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const handleToggleAdditionalFilter = () => {
     setIsFilterVisible(!isFilterVisible);
   };
 
-  const dispatch = useDispatch();
-
   const searchValue = useSelector(getSearchValue);
   const handleSearchbarChangeValue = (e) =>
-    dispatch(changeSearchValue(e.target.value));
-  const handleSearchbarReset = () => dispatch(resetSearchValue());
+    dispatch(setSearchValue(e.target.value));
+  const handleSearchbarReset = () => dispatch(setSearchValue(""));
 
-  const handleResetFilters = () => {
-    dispatch(resetFilters());
+  const [filtersValues, setFiltersValues] = useState(initialState);
+  const handleOnChange = (key) => (event) => {
+    setFiltersValues({ ...filtersValues, [key]: event.target.value });
+  };
+  const handleOnReset = (key) => {
+    setFiltersValues({ ...filtersValues, [key]: "" });
+  };
+  const getFilterValue = (key) => {
+    return filtersValues[key];
   };
 
-  const handleApplyFilters = () => dispatch(applyFilters());
+  const statusValues = getFilterValue("statusValues");
+  const handleChangeStatusValues = (key) => {
+    setFiltersValues({
+      ...filtersValues,
+      ["statusValues"]: statusValues.includes(key)
+        ? statusValues.filter((item) => item !== key)
+        : [...statusValues, key],
+    });
+  };
+
+  const handleApplyFilters = () => {
+    dispatch(setFilter(filtersValues));
+  };
+
+  const handleResetFilters = () => {
+    setFiltersValues(initialState);
+    dispatch(resetFilters());
+  };
 
   return (
     <div className={styles._}>
@@ -80,9 +111,23 @@ export const Filter = () => {
 
       {isFilterVisible && (
         <div className={styles.extendedBlock}>
-          <DateFilter className={styles.dateFilter} />
-          <StatusFilter className={styles.stateFilter} />
-          <AmountFilter className={styles.amountFilter} />
+          <DateFilter
+            className={styles.dateFilter}
+            onChange={handleOnChange}
+            onReset={handleOnReset}
+            getFilterValue={getFilterValue}
+          />
+          <StatusFilter
+            className={styles.stateFilter}
+            handleChangeStatusValues={handleChangeStatusValues}
+            statusValues={statusValues}
+          />
+          <AmountFilter
+            className={styles.amountFilter}
+            onChange={handleOnChange}
+            onReset={handleOnReset}
+            getFilterValue={getFilterValue}
+          />
           <Button
             size={BUTTON_SIZE.medium}
             buttonStyle={BUTTON_STYLE.reverse}

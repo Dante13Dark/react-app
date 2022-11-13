@@ -1,175 +1,158 @@
+import { createSelector } from "@reduxjs/toolkit";
+import { PAGE_LIMIT } from "../ordersFilter/ordersFilterSlice";
+
 export const getOrdersData = (state) => state.orders.allOrders;
 
-export const getSortType = (state) => state.filters.sort.sortType;
+export const getSearchValue = (state) => state.filters.searchValue;
+export const getFilterValues = (state) => state.filters.filters;
+
+export const getSortField = (state) => state.filters.sort.sortField;
 export const getSortDirection = (state) => state.filters.sort.isSortAscending;
 
-export const getPageNumber = (state) => state.orders.page;
-export const getPageLimit = (state) => state.orders.pageLimit;
-export const getSearchValue = (state) => state.filters.searchValue;
-export const getDateFromValue = (state) =>
-  state.filters.selectedFilters.dateFromValue;
-export const getDateToValue = (state) =>
-  state.filters.selectedFilters.dateToValue;
-export const getStatusValues = (state) =>
-  state.filters.selectedFilters.statusValues;
-export const getAmountFromValue = (state) =>
-  state.filters.selectedFilters.amountFromValue;
-export const getAmountToValue = (state) =>
-  state.filters.selectedFilters.amountToValue;
+export const getPageNumber = (state) => state.filters.page;
 
-const getActiveFilterValue = (state, value) =>
-  state.filters.activeFilters[value];
+const getFilteredOrders = (state) => {
+  const ordersData = getOrdersData(state);
+  const searchValue = getSearchValue(state);
+  const { dateFrom, dateTo, statusValues, amountFrom, amountTo } =
+    getFilterValues(state);
 
-const FILTER_VALUE = {
-  dateFrom: "dateFromValue",
-  dateTo: "dateToValue",
-  statusValues: "statusValues",
-  amountFrom: "amountFromValue",
-  amountTo: "amountToValue",
+  const searchFilter = isStringOrSubstring(searchValue);
+  const dateFilter = isDateInRange(
+    parseInputDate(dateFrom),
+    parseInputDate(dateTo)
+  );
+  const amountFilter = isAmountInRange(amountFrom, amountTo);
+  const statusValuesFilter = isContainStatus(statusValues);
+
+  return ordersData.filter(
+    ({ date, amount, status, customer, orderNumber }) => {
+      return areAllTrusty([
+        dateFilter(parseServerDate(date)),
+        amountFilter(amount),
+        searchFilter(customer, orderNumber),
+        statusValuesFilter(status),
+      ]);
+    }
+  );
 };
 
-export const getCurrentPageOrders = (state) => {
-  const orders = getSortedOrders(state);
-  const page = getPageNumber(state);
-  const pageLimit = getPageLimit(state);
-  const beginIndex = pageLimit * (page - 1);
-  const endIndex = beginIndex + pageLimit;
-  return orders.slice(beginIndex, endIndex);
+export const getSortedOrders = (state) => {
+  const filteredOrders = getFilteredOrders(state);
+  const sortField = getSortField(state);
+  const sortDirection = getSortDirection(state);
+  return filteredOrders.sort(SORT_FIELD_MAP[sortField](sortDirection ? -1 : 1));
 };
 
-const getSortedOrders = (state) => {
-  const sortType = getSortType(state);
-  const isSortAscending = getSortDirection(state);
-  let orders = getFilteredOrders(state);
-  const direction = isSortAscending ? -1 : 1;
-  switch (sortType) {
-    case "date":
-      return orders.sort((a, b) => {
-        const aDate = getDate(a.date);
-        const bDate = getDate(b.date);
-        return (aDate - bDate) * direction;
-      });
-    case "status":
-      return orders.sort(
-        (a, b) =>
-          (STATUS_PRIORITY[a.status] - STATUS_PRIORITY[b.status]) * direction
-      );
-    case "count":
-      return orders.sort((a, b) => (a.amount - b.amount) * direction);
-    case "amount":
-      return orders.sort(
-        (a, b) => (parseSum(a.sum) - parseSum(b.sum)) * direction
-      );
-    default:
-      return orders;
+export const getCurrentPageOrders = createSelector(
+  [getSortedOrders, getPageNumber],
+  (sortedOrders, pageNumber) => {
+    const pageLimit = PAGE_LIMIT;
+    const beginIndex = pageLimit * (pageNumber - 1);
+    const endIndex = beginIndex + pageLimit;
+    return sortedOrders.slice(beginIndex, endIndex);
   }
+);
+
+// Фильтрация
+
+const isDateInRange = (dateFrom, dateTo) => (date) => {
+  if (!dateFrom && !dateTo) {
+    return true;
+  }
+
+  if (!dateFrom) {
+    return date <= dateTo;
+  }
+
+  if (!dateTo) {
+    return date >= dateFrom;
+  }
+
+  return date >= dateFrom && date <= dateTo;
 };
+
+const parseInputDate = (inputDate) => {
+  if (!inputDate) {
+    return null;
+  }
+  const [dd, mm, yy] = inputDate.split(".");
+  const date = new Date(yy, mm - 1, dd);
+  return date ? date : null;
+};
+
+const parseServerDate = (serverDate) => {
+  const date = new Date(serverDate);
+  date.setHours(0, 0, 0, 0);
+  return date;
+};
+
+const isAmountInRange = (amountFrom, amountTo) => (amount) => {
+  if (!amountFrom && !amountTo) {
+    return true;
+  }
+
+  if (!amountFrom) {
+    return Number(amount) <= Number(amountTo);
+  }
+
+  if (!amountTo) {
+    return Number(amount) >= Number(amountFrom);
+  }
+
+  return (
+    Number(amount) >= Number(amountFrom) && Number(amount) <= Number(amountTo)
+  );
+};
+
+const isContainStatus = (statusValues) => (status) => {
+  if (!statusValues.length) {
+    return true;
+  }
+  return statusValues.includes(status);
+};
+
+const isStringOrSubstring = (searchValue) => (customer, orderNumber) => {
+  return (
+    customer.includes(searchValue) ||
+    String(orderNumber).startsWith(searchValue, 0)
+  );
+};
+
+const areAllTrusty = (arr) => arr.every(Boolean);
+
+// Сортировка
 
 const STATUS_PRIORITY = {
-  completed: 6,
+  done: 6,
   calculation: 5,
-  confirmed: 4,
+  accepted: 4,
   new: 3,
-  postponed: 2,
-  declined: 1,
+  paused: 2,
+  cancelled: 1,
 };
 
-export const getFilteredOrders = (state) => {
-  let orders = getOrdersData(state);
-  const searchValue = getSearchValue(state);
-
-  // Поиск по значению работает всегда
-  orders = orders.filter((order) => {
-    return searchValue ? filterBySearchValue(order, searchValue) : true;
-  });
-
-  const dateFrom = getActiveFilterValue(state, FILTER_VALUE.dateFrom);
-  const dateTo = getActiveFilterValue(state, FILTER_VALUE.dateTo);
-  const statusValues = getActiveFilterValue(state, FILTER_VALUE.statusValues);
-  const amountFrom = getActiveFilterValue(state, FILTER_VALUE.amountFrom);
-  const amountTo = getActiveFilterValue(state, FILTER_VALUE.amountTo);
-
-  // Остальные фильтры по кнопке
-  return orders.filter((order) => {
-    const isDateFromFilter = dateFrom
-      ? filterByDateFrom(order, dateFrom)
-      : true;
-    const isDateToFilter = dateTo ? filterByDateTo(order, dateTo) : true;
-    const isStatusFilter = statusValues.length
-      ? filterByStatus(order, statusValues)
-      : true;
-    const isAmountFromFilter = amountFrom
-      ? filterByAmountFrom(order, amountFrom)
-      : true;
-    const isAmountToFilter = amountTo
-      ? filterByAmountTo(order, amountTo)
-      : true;
-
-    return (
-      isDateFromFilter &&
-      isDateToFilter &&
-      isStatusFilter &&
-      isAmountFromFilter &&
-      isAmountToFilter
-    );
-  });
+const sortByDate = (direction) => (a, b) => {
+  const aDate = new Date(a.date);
+  const bDate = new Date(b.date);
+  return (aDate - bDate) * direction;
 };
 
-function filterBySearchValue(order, searchValue) {
-  return (
-    order.customer.includes(searchValue) ||
-    String(order.id).includes(searchValue)
-  );
-}
-
-function filterByDateFrom(order, dateFrom) {
-  const [dd, mm, yy] = dateFrom.split(".");
-  const date = getDate(order.date);
-  const dateStart = new Date(yy, mm, dd);
-  console.log(dateStart);
-  console.log(date);
-  return dateStart <= date;
-}
-
-function filterByDateTo(order, dateTo) {
-  const [dd, mm, yy] = dateTo.split(".");
-  const date = getDate(order.date);
-  const dateEnd = new Date(yy, mm, dd);
-  return date <= dateEnd;
-}
-
-const JSON_TO_APP_STATUS_MAP = {
-  new: "new",
-  calculation: "calculation",
-  confirmed: "accepted",
-  postponed: "paused",
-  completed: "done",
-  declined: "cancelled",
+const sortByStatus = (direction) => (a, b) => {
+  return (STATUS_PRIORITY[a.status] - STATUS_PRIORITY[b.status]) * direction;
 };
 
-function filterByStatus(order, selectedStatuses) {
-  return selectedStatuses.includes(JSON_TO_APP_STATUS_MAP[order.status]);
-}
+const sortByCount = (direction) => (a, b) => {
+  return (a.count - b.count) * direction;
+};
 
-function filterByAmountFrom(order, amountFrom) {
-  return parseSum(order.sum) >= amountFrom;
-}
+const sortByAmount = (direction) => (a, b) => {
+  return (a.amount - b.amount) * direction;
+};
 
-function filterByAmountTo(order, amountTo) {
-  return parseSum(order.sum) <= amountTo;
-}
-
-// Helpers
-
-function parseSum(sum) {
-  return parseInt(String(sum).replace(/\s+/g, ""), 10);
-}
-
-function getDate(dateString) {
-  const date = new Date();
-  const [dd, mm, yy] = dateString.slice(0, 10).split(".");
-  date.setFullYear(yy, mm, dd);
-  const [h, m] = dateString.slice(11).split(":");
-  date.setHours(h, m);
-  return date;
-}
+const SORT_FIELD_MAP = {
+  date: sortByDate,
+  amount: sortByAmount,
+  status: sortByStatus,
+  count: sortByCount,
+};
