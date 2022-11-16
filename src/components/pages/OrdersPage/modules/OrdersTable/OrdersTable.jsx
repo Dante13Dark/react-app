@@ -1,8 +1,6 @@
 import styles from "./OrdersTable.module.css";
 import { Table } from "../../../../shared/TableElements/Table/Table";
-import { TableHeader } from "../../../../shared/TableElements/TableHeader/TableHeader";
 import { TableRow } from "../../../../shared/TableElements/TableRow/TableRow";
-import { TableHeaderCell } from "../../../../shared/TableElements/TableHeaderCell/TableHeaderCell";
 import { TableBody } from "../../../../shared/TableElements/TableBody/TableBody";
 import { TableCell } from "../../../../shared/TableElements/TableCell/TableCell";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
@@ -11,14 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { OrdersTableFooter } from "./OrdersTableFooter/OrdersTableFooter";
 import {
   getCurrentPageOrders,
-  getSortDirection,
-  getSortField,
+  getSelectedIDs,
 } from "../../model/orders/ordersSelectors";
 import {
-  setSortDirection,
-  setSortField,
-} from "../../model/ordersFilter/ordersFilterSlice";
-import cn from "classnames";
+  addSelectedIDs,
+  removeSelectedIDs,
+} from "../../model/ordersForm/ordersFormSlice";
+import { OrdersTableHeader } from "./OrdersTableHeader/OrdersTableHeader";
 
 const STATUS_NAME = {
   new: "Новый",
@@ -31,85 +28,41 @@ const STATUS_NAME = {
 
 export const OrdersTable = () => {
   const dispatch = useDispatch();
-  const currentSortField = useSelector(getSortField);
-  const currentSortDirection = useSelector(getSortDirection);
   const orders = useSelector(getCurrentPageOrders);
+  const selectedIDs = useSelector(getSelectedIDs);
 
-  const handleHeaderCellClick = (sortField) => {
-    if (currentSortField === sortField) {
-      dispatch(setSortDirection(!currentSortDirection));
-    } else {
-      dispatch(setSortField(sortField));
-      dispatch(setSortDirection(true));
+  const handleRowClick = (id) => (event) => {
+    const checkbox = document.getElementById(`checkbox_${id}`);
+    if (!checkbox.contains(event.target)) {
+      console.log("row click ", id);
     }
+  };
+
+  const handleCheckboxClick = (id) => (event) => {
+    if (selectedIDs.includes(id)) {
+      dispatch(removeSelectedIDs(id));
+    } else {
+      dispatch(addSelectedIDs(id));
+    }
+    event.stopPropagation();
   };
 
   return (
     <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHeaderCell className={styles.checkbox_cell}>
-            <Checkbox />
-          </TableHeaderCell>
-          <TableHeaderCell className={styles.order_cell}>#</TableHeaderCell>
-          <TableHeaderCell
-            className={cn(styles.date_cell, {
-              [styles.selected]: currentSortField === "date",
-            })}
-            iconClassName={cn({
-              [styles.icon_reverse]:
-                currentSortField === "date" && currentSortDirection === false,
-            })}
-            onClick={() => handleHeaderCellClick("date")}
-          >
-            Дата
-          </TableHeaderCell>
-          <TableHeaderCell
-            className={cn(styles.status_cell, {
-              [styles.selected]: currentSortField === "status",
-            })}
-            iconClassName={cn({
-              [styles.icon_reverse]:
-                currentSortField === "status" && currentSortDirection === false,
-            })}
-            onClick={() => handleHeaderCellClick("status")}
-          >
-            Статус
-          </TableHeaderCell>
-          <TableHeaderCell
-            className={cn(styles.count_cell, {
-              [styles.selected]: currentSortField === "count",
-            })}
-            iconClassName={cn({
-              [styles.icon_reverse]:
-                currentSortField === "count" && currentSortDirection === false,
-            })}
-            onClick={() => handleHeaderCellClick("count")}
-          >
-            Позиций
-          </TableHeaderCell>
-          <TableHeaderCell
-            className={cn(styles.amount_cell, {
-              [styles.selected]: currentSortField === "amount",
-            })}
-            iconClassName={cn({
-              [styles.icon_reverse]:
-                currentSortField === "amount" && currentSortDirection === false,
-            })}
-            onClick={() => handleHeaderCellClick("amount")}
-          >
-            Сумма
-          </TableHeaderCell>
-          <TableHeaderCell className={styles.client_cell}>
-            ФИО покупателя
-          </TableHeaderCell>
-        </TableRow>
-      </TableHeader>
+      <OrdersTableHeader />
       <TableBody>
         {orders.map((order) => (
-          <TableRow className={styles.bordered} key={order.id}>
+          <TableRow
+            className={styles.bordered}
+            key={order.id}
+            onClick={handleRowClick(order.id)}
+          >
             <TableCell className={styles.checkbox_cell}>
-              <Checkbox />
+              <Checkbox
+                id={`checkbox_${order.id}`}
+                checked={selectedIDs.includes(order.id)}
+                onClick={handleCheckboxClick(order.id)}
+              />
             </TableCell>
             <TableCell className={styles.order_cell}>
               {order.orderNumber}

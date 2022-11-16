@@ -10,6 +10,7 @@ export const getSortField = (state) => state.filters.sort.sortField;
 export const getSortDirection = (state) => state.filters.sort.isSortAscending;
 
 export const getPageNumber = (state) => state.filters.page;
+export const getSelectedIDs = (state) => state.ordersForm.selectedIDs;
 
 const getFilteredOrders = (state) => {
   const ordersData = getOrdersData(state);

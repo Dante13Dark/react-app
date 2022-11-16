@@ -12,6 +12,7 @@ export const Checkbox = ({
   text,
   isTextOnly,
   iconClassName,
+  id,
 }) => {
   const checkboxClassNames = cn(styles._, className);
 
@@ -22,7 +23,7 @@ export const Checkbox = ({
   const iconClassNames = cn(styles.icon, iconClassName);
 
   return (
-    <label className={checkboxClassNames}>
+    <label className={checkboxClassNames} id={id}>
       <input
         className={inputClassNames}
         type="checkbox"
