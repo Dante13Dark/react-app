@@ -1,0 +1,50 @@
+.buttonsBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.text {
+  color: var(--style-primary);
+}
+
+.list {
+  padding: 0.5rem 0;
+}
+
+.dialog {
+  padding: 1rem;
+  align-items: center;
+}
+
+.dropdown {
+  left: 0;
+  bottom: 1.75rem;
+  top: unset;
+  right: unset;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.control {
+  padding: 0.5rem 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  align-self: flex-start;
+}

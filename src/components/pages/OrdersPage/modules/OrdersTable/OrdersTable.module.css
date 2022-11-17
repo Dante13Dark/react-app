@@ -32,27 +32,10 @@
   width: 100%;
 }
 
-.footer__buttonsBlock {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
+.selected {
+  background: var(--shadow);
 }
 
-.button_danger {
-  background-color: var(--style-danger);
-}
-
-.footer__text {
-  color: var(--style-primary);
-}
-
-.footer__pages {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.footer__pagination {
-  display: flex;
-  gap: 0.25rem;
+.icon_reverse {
+  transform: rotate(180deg);
 }

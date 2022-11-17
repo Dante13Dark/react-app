@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import { PageHeader } from "../../../../shared/PageHeader/PageHeader";
 import {
@@ -17,16 +17,10 @@ import {
 } from "../../../../shared/ThemeContext/ThemeContext";
 import cn from "classnames";
 
-export const OrdersPageHeader = ({ title, className }) => {
-  const [isVisibleDropdown, setIsVisibleDropdown] = useState(false);
-  const handleToggleVisibility = () => {
-    setIsVisibleDropdown(!isVisibleDropdown);
-  };
-
+export const OrdersPageHeader = ({ className }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const handleThemeSelection = (currentTheme) => {
     toggleTheme(currentTheme);
-    handleToggleVisibility();
   };
 
   const button = (
@@ -36,7 +30,6 @@ export const OrdersPageHeader = ({ title, className }) => {
       buttonStyle={BUTTON_STYLE.reverse}
       iconClassName={styles.icon}
       icon={isDarkTheme(theme) ? ICON_MAP.moon : ICON_MAP.sun}
-      onClick={handleToggleVisibility}
     >
       {isDarkTheme(theme) ? "Темная тема" : "Светлая тема"}
     </Button>
@@ -71,8 +64,8 @@ export const OrdersPageHeader = ({ title, className }) => {
   );
 
   return (
-    <PageHeader title={title} className={className}>
-      <Dropdown trigger={button} overlay={overlay} isOpen={isVisibleDropdown} />
+    <PageHeader title={"Список заказов"} className={className}>
+      <Dropdown trigger={button} overlay={overlay} />
     </PageHeader>
   );
 };

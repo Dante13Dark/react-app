@@ -15,6 +15,9 @@ export const Input = ({
   disabled,
   prefix,
   postfix,
+  readOnly,
+  onChange = noop,
+  onReset = noop,
   ...props
 }) => {
   const inputStyleNames = cn(styles._, className, {
@@ -37,17 +40,19 @@ export const Input = ({
           value={value}
           placeholder={placeholder}
           disabled={disabled}
-          onChange={noop}
+          readOnly={readOnly}
+          onChange={onChange}
           {...props}
         />
         {postfix && postfix}
-        {incorrect && !disabled && (
+        {value && !disabled && !readOnly && (
           <Button
             className={styles.cross_button}
             icon={ICON_MAP.xMedium}
             iconClassName={styles.icon}
             buttonStyle={BUTTON_STYLE.reverse}
             size={BUTTON_SIZE.small}
+            onClick={onReset}
           />
         )}
         {disabled && (

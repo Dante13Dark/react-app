@@ -5,29 +5,45 @@ import { TableRow } from "../../../../shared/TableElements/TableRow/TableRow";
 import { TableHeaderCell } from "../../../../shared/TableElements/TableHeaderCell/TableHeaderCell";
 import { TableBody } from "../../../../shared/TableElements/TableBody/TableBody";
 import { TableCell } from "../../../../shared/TableElements/TableCell/TableCell";
-import { TableFooter } from "../../../../shared/TableElements/TableFooter/TableFooter";
-import {
-  Button,
-  BUTTON_SIZE,
-  BUTTON_STYLE,
-} from "../../../../shared/Button/Button";
-import { ICON_MAP } from "../../../../shared/Icon/Icon";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
-import cn from "classnames";
-import { orders } from "./orders";
 import { StatusCell } from "./StatusCell/StatusCell";
+import { useDispatch, useSelector } from "react-redux";
+import { OrdersTableFooter } from "./OrdersTableFooter/OrdersTableFooter";
+import {
+  getCurrentPageOrders,
+  getSortDirection,
+  getSortField,
+} from "../../model/orders/ordersSelectors";
+import {
+  setSortDirection,
+  setSortField,
+} from "../../model/ordersFilter/ordersFilterSlice";
+import cn from "classnames";
 
-const noop = () => {};
 const STATUS_NAME = {
   new: "Новый",
   calculation: "Расчет",
-  confirmed: "Подтвержден",
-  postponed: "Отложен",
-  completed: "Выполнен",
-  declined: "Отменен",
+  accepted: "Подтвержден",
+  paused: "Отложен",
+  done: "Выполнен",
+  cancelled: "Отменен",
 };
 
 export const OrdersTable = () => {
+  const dispatch = useDispatch();
+  const currentSortField = useSelector(getSortField);
+  const currentSortDirection = useSelector(getSortDirection);
+  const orders = useSelector(getCurrentPageOrders);
+
+  const handleHeaderCellClick = (sortField) => {
+    if (currentSortField === sortField) {
+      dispatch(setSortDirection(!currentSortDirection));
+    } else {
+      dispatch(setSortField(sortField));
+      dispatch(setSortDirection(true));
+    }
+  };
+
   return (
     <Table>
       <TableHeader>
@@ -36,16 +52,52 @@ export const OrdersTable = () => {
             <Checkbox />
           </TableHeaderCell>
           <TableHeaderCell className={styles.order_cell}>#</TableHeaderCell>
-          <TableHeaderCell className={styles.date_cell} onClick={noop}>
+          <TableHeaderCell
+            className={cn(styles.date_cell, {
+              [styles.selected]: currentSortField === "date",
+            })}
+            iconClassName={cn({
+              [styles.icon_reverse]:
+                currentSortField === "date" && currentSortDirection === false,
+            })}
+            onClick={() => handleHeaderCellClick("date")}
+          >
             Дата
           </TableHeaderCell>
-          <TableHeaderCell className={styles.status_cell} onClick={noop}>
+          <TableHeaderCell
+            className={cn(styles.status_cell, {
+              [styles.selected]: currentSortField === "status",
+            })}
+            iconClassName={cn({
+              [styles.icon_reverse]:
+                currentSortField === "status" && currentSortDirection === false,
+            })}
+            onClick={() => handleHeaderCellClick("status")}
+          >
             Статус
           </TableHeaderCell>
-          <TableHeaderCell className={styles.count_cell} onClick={noop}>
+          <TableHeaderCell
+            className={cn(styles.count_cell, {
+              [styles.selected]: currentSortField === "count",
+            })}
+            iconClassName={cn({
+              [styles.icon_reverse]:
+                currentSortField === "count" && currentSortDirection === false,
+            })}
+            onClick={() => handleHeaderCellClick("count")}
+          >
             Позиций
           </TableHeaderCell>
-          <TableHeaderCell className={styles.amount_cell} onClick={noop}>
+          <TableHeaderCell
+            className={cn(styles.amount_cell, {
+              [styles.selected]: currentSortField === "amount",
+            })}
+            iconClassName={cn({
+              [styles.icon_reverse]:
+                currentSortField === "amount" && currentSortDirection === false,
+            })}
+            onClick={() => handleHeaderCellClick("amount")}
+          >
             Сумма
           </TableHeaderCell>
           <TableHeaderCell className={styles.client_cell}>
@@ -59,60 +111,50 @@ export const OrdersTable = () => {
             <TableCell className={styles.checkbox_cell}>
               <Checkbox />
             </TableCell>
-            <TableCell className={styles.order_cell}>{order.id}</TableCell>
-            <TableCell className={styles.date_cell}>{order.date}</TableCell>
+            <TableCell className={styles.order_cell}>
+              {order.orderNumber}
+            </TableCell>
+            <TableCell className={styles.date_cell}>
+              {formatDate(order.date)}
+            </TableCell>
             <StatusCell className={styles.status_cell} status={order.status}>
               {STATUS_NAME[order.status]}
             </StatusCell>
-            <TableCell className={styles.count_cell}>{order.amount}</TableCell>
-            <TableCell className={styles.amount_cell}>{order.sum}</TableCell>
+            <TableCell className={styles.count_cell}>{order.count}</TableCell>
+            <TableCell className={styles.amount_cell}>
+              {formatAmount(order.amount, order.currency)}
+            </TableCell>
             <TableCell className={styles.client_cell}>
               {order.customer}
             </TableCell>
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <div className={styles.footer__buttonsBlock}>
-          <span className={styles.footer__text}>Выбрано записей: 5</span>
-          <Button
-            size={BUTTON_SIZE.small}
-            buttonStyle={BUTTON_STYLE.primary}
-            icon={ICON_MAP.pencil}
-          >
-            Изменить статус
-          </Button>
-          <Button
-            size={BUTTON_SIZE.small}
-            buttonStyle={cn(BUTTON_STYLE.danger)}
-            icon={ICON_MAP.bin}
-          >
-            Удалить
-          </Button>
-        </div>
-        <div className={styles.footer__pages}>
-          <div className={styles.footer__pagination}>
-            <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-              1
-            </Button>
-            <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-              2
-            </Button>
-            <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-              3
-            </Button>
-            <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-              ...
-            </Button>
-            <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-              18
-            </Button>
-          </div>
-          <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.reverse}>
-            #
-          </Button>
-        </div>
-      </TableFooter>
+      <OrdersTableFooter />
     </Table>
   );
 };
+
+function formatDate(dateString) {
+  const formatter = Intl.DateTimeFormat("ru-RU", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+  const date = new Date(dateString);
+  return formatter.format(date);
+}
+
+function formatAmount(amount, currency) {
+  const formatter = new Intl.NumberFormat("ru-RU", {
+    style: "currency",
+    currency: currency,
+
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
+
+  return formatter.format(amount);
+}

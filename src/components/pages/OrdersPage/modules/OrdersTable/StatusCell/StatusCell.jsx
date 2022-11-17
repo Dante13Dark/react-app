@@ -12,19 +12,19 @@ const STATUS_MAP = {
     icon: ICON_MAP.dot,
     statusStyle: styles.waiting,
   },
-  confirmed: {
+  accepted: {
     icon: ICON_MAP.dot,
     statusStyle: styles.waiting,
   },
-  postponed: {
+  paused: {
     icon: ICON_MAP.dot,
     statusStyle: styles.warning,
   },
-  completed: {
+  done: {
     icon: ICON_MAP.checkmark,
     statusStyle: styles.success,
   },
-  declined: {
+  cancelled: {
     icon: ICON_MAP.abort,
     statusStyle: styles.failure,
   },

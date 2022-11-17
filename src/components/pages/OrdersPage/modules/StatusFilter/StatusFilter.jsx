@@ -1,12 +1,12 @@
 import cn from "classnames";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import styles from "./StatusFilter.module.css";
 import { Input } from "../../../../shared/Input/Input";
 import { Dropdown } from "../../../../shared/Dropdown/Dropdown";
 import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
 import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
 
-const STATUS_MAP = {
+export const STATUS_MAP = {
   new: "Новый",
   calculation: "Расчет",
   accepted: "Подтвержден",
@@ -15,21 +15,11 @@ const STATUS_MAP = {
   cancelled: "Отменен",
 };
 
-export const StatusFilter = ({ className }) => {
-  const [isVisibleDropdown, setIsVisibleDropdown] = useState(false);
-  const handleToggleVisibility = () => {
-    setIsVisibleDropdown(!isVisibleDropdown);
-  };
-
-  const [statusValues, setStatusValues] = useState([]);
-
-  const handleChangeStatusValues = (el) => {
-    const newStatusValues = statusValues.includes(el)
-      ? statusValues.filter((item) => item !== el)
-      : [...statusValues, el];
-    setStatusValues(newStatusValues);
-  };
-
+export const StatusFilter = ({
+  className,
+  statusValues,
+  handleChangeStatusValues,
+}) => {
   const checkedStatuses = useMemo(() => {
     const statuses = statusValues.map((status) => STATUS_MAP[status]);
     if (
@@ -43,19 +33,12 @@ export const StatusFilter = ({ className }) => {
   }, [statusValues]);
 
   const classNames = cn(styles._, className);
-  const postfixIcon = (
-    <Icon
-      name={ICON_MAP.vArrow}
-      className={styles.icon}
-      onClick={handleToggleVisibility}
-    />
-  );
+  const postfixIcon = <Icon name={ICON_MAP.vArrow} className={styles.icon} />;
   const input = (
     <div className={classNames}>
       <Input
         label="Статус заказа"
         placeholder={"Любой"}
-        onClick={handleToggleVisibility}
         value={checkedStatuses}
         readOnly={true}
         postfix={postfixIcon}
@@ -80,12 +63,5 @@ export const StatusFilter = ({ className }) => {
       ))}
     </div>
   );
-  return (
-    <Dropdown
-      trigger={input}
-      overlay={overlay}
-      isOpen={isVisibleDropdown}
-      className={className}
-    />
-  );
+  return <Dropdown trigger={input} overlay={overlay} className={className} />;
 };
