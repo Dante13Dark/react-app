@@ -56,6 +56,11 @@ export const getCurrentPageOrders = createSelector(
   }
 );
 
+export const getOrderById = (id) =>
+  createSelector([getOrdersData], (orders) => {
+    return orders.find((order) => order.id === id);
+  });
+
 // Фильтрация
 
 const isDateInRange = (dateFrom, dateTo) => (date) => {

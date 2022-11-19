@@ -1,10 +1,10 @@
 import cn from "classnames";
 import { useMemo } from "react";
 import styles from "./StatusFilter.module.css";
-import { Input } from "../../../../shared/Input/Input";
-import { Dropdown } from "../../../../shared/Dropdown/Dropdown";
-import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
-import { Checkbox } from "../../../../shared/Checkbox/Checkbox";
+import { Input } from "../../../../../shared/Input/Input";
+import { Dropdown } from "../../../../../shared/Dropdown/Dropdown";
+import { Icon, ICON_MAP } from "../../../../../shared/Icon/Icon";
+import { Checkbox } from "../../../../../shared/Checkbox/Checkbox";
 
 export const STATUS_MAP = {
   new: "Новый",

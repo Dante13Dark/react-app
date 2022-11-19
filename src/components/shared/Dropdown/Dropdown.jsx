@@ -2,8 +2,11 @@ import styles from "./Dropdown.module.css";
 import cn from "classnames";
 import { cloneElement, useEffect, useRef, useState } from "react";
 
-export const Dropdown = ({ trigger, overlay, className }) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const Dropdown = ({ trigger, overlay, className, outerState }) => {
+  let [isOpen, setIsOpen] = useState(false);
+  if (outerState) {
+    [isOpen, setIsOpen] = outerState;
+  }
 
   const triggerRef = useRef();
 

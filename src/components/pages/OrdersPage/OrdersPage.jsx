@@ -1,5 +1,5 @@
 import styles from "./OrdersPage.module.css";
-import { Filter } from "./modules/Filter/Filter";
+import { Filter } from "./modules/Filters/Filter/Filter";
 import { OrdersPageHeader } from "./modules/OrdersPageHeader/OrdersPageHeader";
 import { OrdersTable } from "./modules/OrdersTable/OrdersTable";
 

@@ -46,5 +46,5 @@
 
 .title {
   display: flex;
-  align-self: flex-start;
+  align-self: stretch;
 }

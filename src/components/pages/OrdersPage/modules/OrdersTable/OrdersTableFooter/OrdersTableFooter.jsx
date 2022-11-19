@@ -9,7 +9,7 @@ import { ICON_MAP } from "../../../../../shared/Icon/Icon";
 import { Radio } from "../../../../../shared/Radio/Radio";
 import { Dropdown } from "../../../../../shared/Dropdown/Dropdown";
 import cn from "classnames";
-import { STATUS_MAP } from "../../StatusFilter/StatusFilter";
+import { STATUS_MAP } from "../../Filters/StatusFilter/StatusFilter";
 import { Pagination } from "./Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelectedIDs } from "../../../model/orders/ordersSelectors";
@@ -72,7 +72,9 @@ export const OrdersTableFooter = () => {
 
   const deleteDropdownOverlay = (
     <div className={styles.content}>
-      <span className={styles.title}>Удалить n записей?</span>
+      <span className={styles.title}>
+        {`Удалить ${selectedIDs.length} записей?`}
+      </span>
       <Button
         size={BUTTON_SIZE.small}
         buttonStyle={BUTTON_STYLE.reverse}
