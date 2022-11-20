@@ -3,10 +3,9 @@
   top: 0;
   left: 0;
   display: flex;
-  align-items: stretch;
   justify-content: right;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: rgba(1, 1, 1, 0.1);
   backdrop-filter: blur(0.0325rem);
   overflow: hidden;
@@ -15,68 +14,14 @@
 }
 
 .form {
-  position: relative;
   display: flex;
   flex-direction: column;
   width: 30rem;
   max-width: 100%;
+  height: 100%;
   background-color: var(--text-reverse);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1),
     0 2px 2px rgba(0, 0, 0, 0.1);
   transition: transform 0.15s ease 0s, opacity 0.15s ease 0s;
   transform: scale(1);
-}
-
-.date {
-  padding-top: 1.5rem;
-}
-
-.hidden {
-  display: none;
-}
-
-.status {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.statusDropdown {
-  left: 13rem;
-  top: -11.7rem;
-  z-index: 1;
-}
-
-.footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: right;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  position: absolute;
-  height: 48px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--additional-filter-background);
-}
-
-.error {
-  font-size: 0.8125rem;
-  line-height: 1rem;
-  color: var(--style-danger);
-  padding-right: 1rem;
-}
-
-.close {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.closeDropdown {
-  position: absolute;
-  left: -7.7rem;
-  top: 1.9rem;
-  z-index: 1;
 }

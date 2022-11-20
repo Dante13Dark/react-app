@@ -20,6 +20,7 @@ import {
   resetFilters,
   setFilter,
 } from "../../../model/ordersFilter/ordersFilterSlice";
+import { clearSelectedIDs } from "../../../model/ordersForm/ordersFormSlice";
 
 const initialState = {
   dateFrom: "",
@@ -71,6 +72,7 @@ export const Filter = () => {
   const handleResetFilters = () => {
     setFiltersValues(initialState);
     dispatch(resetFilters());
+    dispatch(clearSelectedIDs());
   };
 
   return (

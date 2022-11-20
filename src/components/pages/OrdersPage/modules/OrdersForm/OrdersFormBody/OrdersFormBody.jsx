@@ -7,14 +7,21 @@ import { Dropdown } from "../../../../../shared/Dropdown/Dropdown";
 import cn from "classnames";
 import { Icon, ICON_MAP } from "../../../../../shared/Icon/Icon";
 import { formatDate } from "../../../utils/Formatters";
+import { OrdersFormTable } from "./OrdersFormTable/OrdersFormTable";
 
-const CODE_MOCK = "000";
+export const OrdersFormBody = ({
+  order,
+  customerState,
+  statusState,
+  codeState,
+  setError,
+  validState,
+}) => {
+  const [customer, setCustomer] = customerState;
+  const [selectedStatus, setSelectedStatus] = statusState;
+  const [code, setCode] = codeState;
+  const [isValid, setIsValid] = validState;
 
-export const OrdersFormBody = ({ order }) => {
-  const [customer, setCustomer] = useState(order.customer);
-  const [code, setCode] = useState("");
-
-  const [selectedStatus, setSelectedStatus] = useState(order.status);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const postfixIcon = <Icon name={ICON_MAP.vArrow} className={styles.icon} />;
   const changeStatusTrigger = (
@@ -60,16 +67,21 @@ export const OrdersFormBody = ({ order }) => {
         id="OrdersFormName"
         autoFocus
         value={customer}
-        onChange={(e) => setCustomer(e.target.value)}
+        onChange={(e) => {
+          setIsValid(true);
+          setError("");
+          setCustomer(e.target.value);
+        }}
         onReset={() => setCustomer("")}
         label="ФИО покупателя"
         placeholder="Введите ФИО покупателя"
+        incorrect={!customer.length}
       />
-      {/*<OrderTableModalBodyTable order={order} />*/}
+      <OrdersFormTable />
       <Input
         id="OrdersFormLoyalty"
         label="Уровень лояльности"
-        value="Новичек"
+        value="Новичок"
         disabled
       />
       <Dropdown
@@ -82,9 +94,13 @@ export const OrdersFormBody = ({ order }) => {
         id="OrdersFormCode"
         label="Код подтверждения"
         placeholder="Введите цифровой код"
-        incorrect={code !== CODE_MOCK && code !== ""}
+        incorrect={!isValid}
         value={code}
-        onChange={(e) => setCode(e.target.value)}
+        onChange={(e) => {
+          setIsValid(true);
+          setError("");
+          setCode(e.target.value);
+        }}
         onReset={() => setCode("")}
       />
     </div>

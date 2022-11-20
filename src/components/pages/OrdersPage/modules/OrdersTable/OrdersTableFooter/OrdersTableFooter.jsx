@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSelectedIDs } from "../../../model/orders/ordersSelectors";
 import { removeOrder, updateOrder } from "../../../model/orders/ordersSlice";
 import { clearSelectedIDs } from "../../../model/ordersForm/ordersFormSlice";
+import { useState } from "react";
 
 export const OrdersTableFooter = () => {
   const selectedIDs = useSelector(getSelectedIDs);
@@ -25,14 +26,24 @@ export const OrdersTableFooter = () => {
       dispatch(removeOrder(id));
     });
     dispatch(clearSelectedIDs());
+    setIsDeleteDropdownOpen(false);
   };
 
   const handleUpdateStatus = (selectedValue) => {
     selectedIDs.forEach((id) => {
-      dispatch(updateOrder({ id: id, key: "status", value: selectedValue }));
+      dispatch(
+        updateOrder({
+          id: id,
+          fields: {
+            status: selectedValue,
+          },
+        })
+      );
     });
+    setIsStatusDropdownOpen(false);
   };
 
+  const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
   const changeStatusTrigger = (
     <Button
       size={BUTTON_SIZE.small}
@@ -60,6 +71,7 @@ export const OrdersTableFooter = () => {
     </>
   );
 
+  const [isDeleteDropdownOpen, setIsDeleteDropdownOpen] = useState(false);
   const deleteDropdownTrigger = (
     <Button
       size={BUTTON_SIZE.small}
@@ -82,7 +94,11 @@ export const OrdersTableFooter = () => {
       >
         Удалить
       </Button>
-      <Button size={BUTTON_SIZE.small} buttonStyle={BUTTON_STYLE.primary}>
+      <Button
+        size={BUTTON_SIZE.small}
+        buttonStyle={BUTTON_STYLE.primary}
+        onClick={() => setIsDeleteDropdownOpen(false)}
+      >
         Отмена
       </Button>
     </div>
@@ -100,11 +116,13 @@ export const OrdersTableFooter = () => {
               trigger={changeStatusTrigger}
               overlay={changeStatusOverlay}
               className={cn(styles.dropdown, styles.list)}
+              outerState={[isStatusDropdownOpen, setIsStatusDropdownOpen]}
             />
             <Dropdown
               trigger={deleteDropdownTrigger}
               overlay={deleteDropdownOverlay}
               className={cn(styles.dropdown, styles.dialog)}
+              outerState={[isDeleteDropdownOpen, setIsDeleteDropdownOpen]}
             />
           </>
         )}

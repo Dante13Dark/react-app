@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { PageHeader } from "../../../../shared/PageHeader/PageHeader";
 import {
@@ -18,9 +18,11 @@ import {
 import cn from "classnames";
 
 export const OrdersPageHeader = ({ className }) => {
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const handleThemeSelection = (currentTheme) => {
     toggleTheme(currentTheme);
+    setDropdownOpen(false);
   };
 
   const button = (
@@ -65,7 +67,11 @@ export const OrdersPageHeader = ({ className }) => {
 
   return (
     <PageHeader title={"Список заказов"} className={className}>
-      <Dropdown trigger={button} overlay={overlay} />
+      <Dropdown
+        trigger={button}
+        overlay={overlay}
+        outerState={[isDropdownOpen, setDropdownOpen]}
+      />
     </PageHeader>
   );
 };

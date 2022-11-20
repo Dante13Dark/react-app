@@ -6,15 +6,11 @@ import {
   BUTTON_STYLE,
 } from "../../../../../shared/Button/Button";
 
-export const OrdersFormFooter = ({ setIsModalActive }) => {
-  const handleSaveButtonClick = () => {
-    // Если нет ошибок обновить параметры заказа
-    setIsModalActive(false);
-  };
-
+export const OrdersFormFooter = ({ handleSaveButtonClick, errorText }) => {
+  const isShowError = errorText.length > 0;
   return (
     <div className={styles._}>
-      {/*{isMessageActive && <span className={styles.message}>{message}</span>}*/}
+      {isShowError && <span className={styles.error}>{errorText}</span>}
       <Button
         icon={ICON_MAP.checkmark}
         buttonStyle={BUTTON_STYLE.primary}

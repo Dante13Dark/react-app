@@ -18,9 +18,11 @@ const ordersSlice = createSlice({
   name: "orders",
   initialState,
   reducers: {
-    updateOrder: (state, { payload: { id, key, value } }) => {
+    updateOrder: (state, { payload: { id, fields } }) => {
       const order = state.ordersData.find((order) => order.id === id);
-      order[key] = value;
+      Object.keys(fields).forEach((key) => {
+        order[key] = fields[key];
+      });
     },
     addOrder: (state, action) => {
       state.ordersData.push(action.payload);

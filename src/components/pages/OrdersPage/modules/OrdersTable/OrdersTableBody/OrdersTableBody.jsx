@@ -42,7 +42,6 @@ export const OrdersTableBody = () => {
   const handleRowClick = (id) => (event) => {
     const checkbox = document.getElementById(`checkbox_${id}`);
     if (!checkbox.contains(event.target)) {
-      console.log("row click ", id);
       setOrderId(id);
       setIsModalActive(true);
     }
@@ -93,7 +92,7 @@ export const OrdersTableBody = () => {
         ))}
       </TableBody>
       {isModalActive && (
-        <OrdersForm modalSetter={setIsModalActive} orderId={orderId} />
+        <OrdersForm setIsModalActive={setIsModalActive} orderId={orderId} />
       )}
     </>
   );

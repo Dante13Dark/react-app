@@ -1,8 +1,12 @@
 ._ {
   display: flex;
+  height: 100%;
   flex-direction: column;
   padding: 2rem 1rem 3rem 1rem;
   gap: 2rem;
+  justify-content: flex-start;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .list {
