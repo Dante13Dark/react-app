@@ -13,9 +13,10 @@ import {
   addSelectedIDs,
   removeSelectedIDs,
 } from "../../../model/ordersForm/ordersFormSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { OrdersForm } from "../../OrdersForm/OrdersForm";
 import { formatAmount, formatDate } from "../../../utils/Formatters";
+import { loadOrders } from "../../../model/orders/ordersSlice";
 
 const STATUS_NAME = {
   new: "Новый",
@@ -27,9 +28,14 @@ const STATUS_NAME = {
 };
 
 export const OrdersTableBody = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadOrders());
+  }, [dispatch]);
+
   const [isModalActive, setIsModalActive] = useState(false);
   const [orderId, setOrderId] = useState(null);
-  const dispatch = useDispatch();
   const orders = useSelector(getCurrentPageOrders);
   const selectedIDs = useSelector(getSelectedIDs);
 

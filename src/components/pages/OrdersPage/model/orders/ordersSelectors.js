@@ -1,7 +1,8 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { PAGE_LIMIT } from "../ordersFilter/ordersFilterSlice";
 
-export const getOrdersData = (state) => state.orders;
+export const getOrdersIsLoading = (state) => state.orders.isLoading;
+export const getOrdersData = (state) => state.orders.ordersData;
 
 export const getFilters = (state) => state.filters;
 export const getSearchValue = (state) => state.filters.searchValue;

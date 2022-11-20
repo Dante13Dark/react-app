@@ -1,22 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { orders } from "../mock/orders";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { orders as ordersMock } from "../mock/orders";
 
-const initialState = orders;
+const ORDERS_LOADING_DELAY = 2000;
+
+export const loadOrders = createAsyncThunk("loadOrders", async () => {
+  return await new Promise((resolve) => {
+    setTimeout(() => resolve(ordersMock), ORDERS_LOADING_DELAY);
+  });
+});
+
+const initialState = {
+  ordersData: [],
+  isLoading: false,
+};
 
 const ordersSlice = createSlice({
   name: "orders",
   initialState,
   reducers: {
     updateOrder: (state, { payload: { id, key, value } }) => {
-      const order = state.find((order) => order.id === id);
+      const order = state.ordersData.find((order) => order.id === id);
       order[key] = value;
     },
     addOrder: (state, action) => {
-      state.push(action.payload);
+      state.ordersData.push(action.payload);
     },
     removeOrder: (state, action) => {
-      state = state.filter((order) => order.id !== action.payload);
+      state.ordersData = state.ordersData.filter(
+        (order) => order.id !== action.payload
+      );
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loadOrders.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(loadOrders.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.ordersData = action.payload;
+      });
   },
 });
 

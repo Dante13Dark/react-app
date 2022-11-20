@@ -11,7 +11,10 @@ import { StatusFilter } from "../StatusFilter/StatusFilter";
 import { AmountFilter } from "../AmountFilter/AmountFilter";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchValue } from "../../../model/orders/ordersSelectors";
+import {
+  getOrdersIsLoading,
+  getSearchValue,
+} from "../../../model/orders/ordersSelectors";
 import {
   setSearchValue,
   resetFilters,
@@ -29,6 +32,7 @@ const initialState = {
 export const Filter = () => {
   const dispatch = useDispatch();
 
+  const isOrdersLoading = useSelector(getOrdersIsLoading);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const handleToggleAdditionalFilter = () => {
     setIsFilterVisible(!isFilterVisible);
@@ -103,10 +107,12 @@ export const Filter = () => {
             </Button>
           )}
         </div>
-        <div className={styles.loading}>
-          <Icon name={ICON_MAP.refresh} className={styles.icon} />
-          <span className={styles.text}>Загрузка</span>
-        </div>
+        {isOrdersLoading && (
+          <div className={styles.loading}>
+            <Icon name={ICON_MAP.refresh} className={styles.icon} />
+            <span className={styles.text}>Загрузка</span>
+          </div>
+        )}
       </div>
 
       {isFilterVisible && (
