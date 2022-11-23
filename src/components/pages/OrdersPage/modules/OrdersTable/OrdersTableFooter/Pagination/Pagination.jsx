@@ -101,7 +101,7 @@ export const Pagination = () => {
 
 function calculatePages(activePage, pageCount) {
   let pages = [activePage];
-  if (pageCount <= 7) {
+  if (pageCount <= 5) {
     pages = Array.from({ length: pageCount }, (_, i) => i + 1);
   } else {
     const diffBefore = activePage - 1;

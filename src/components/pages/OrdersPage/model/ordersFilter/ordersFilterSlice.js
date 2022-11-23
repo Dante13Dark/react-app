@@ -37,9 +37,8 @@ export const ordersFilterSlice = createSlice({
     setSortDirection: (state, action) => {
       state.sort.isSortAscending = action.payload;
     },
-    resetFilters(state) {
-      state.searchValue = "";
-      state.filters = initialState.filters;
+    resetFilters() {
+      return initialState;
     },
   },
 });

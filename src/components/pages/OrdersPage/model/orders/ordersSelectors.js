@@ -1,8 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { PAGE_LIMIT } from "../ordersFilter/ordersFilterSlice";
 
-export const getOrdersData = (state) => state.orders.allOrders;
+export const getOrdersIsLoading = (state) => state.orders.isLoading;
+export const getOrdersData = (state) => state.orders.ordersData;
 
+export const getFilters = (state) => state.filters;
 export const getSearchValue = (state) => state.filters.searchValue;
 export const getFilterValues = (state) => state.filters.filters;
 
@@ -10,39 +12,40 @@ export const getSortField = (state) => state.filters.sort.sortField;
 export const getSortDirection = (state) => state.filters.sort.isSortAscending;
 
 export const getPageNumber = (state) => state.filters.page;
+export const getSelectedIDs = (state) => state.ordersForm.selectedIDs;
 
-const getFilteredOrders = (state) => {
-  const ordersData = getOrdersData(state);
-  const searchValue = getSearchValue(state);
+const getFilteredOrders = (orders, filters) => {
+  const { searchValue } = filters;
   const { dateFrom, dateTo, statusValues, amountFrom, amountTo } =
-    getFilterValues(state);
+    filters.filters;
 
   const searchFilter = isStringOrSubstring(searchValue);
   const dateFilter = isDateInRange(
     parseInputDate(dateFrom),
     parseInputDate(dateTo)
   );
-  const amountFilter = isAmountInRange(amountFrom, amountTo);
+  const amountFilter = isAmountInRange(Number(amountFrom), Number(amountTo));
   const statusValuesFilter = isContainStatus(statusValues);
 
-  return ordersData.filter(
-    ({ date, amount, status, customer, orderNumber }) => {
-      return areAllTrusty([
-        dateFilter(parseServerDate(date)),
-        amountFilter(amount),
-        searchFilter(customer, orderNumber),
-        statusValuesFilter(status),
-      ]);
-    }
-  );
+  return orders.filter(({ date, amount, status, customer, orderNumber }) => {
+    return areAllTruthy([
+      dateFilter(parseServerDate(date)),
+      amountFilter(amount),
+      searchFilter(customer, orderNumber),
+      statusValuesFilter(status),
+    ]);
+  });
 };
 
-export const getSortedOrders = (state) => {
-  const filteredOrders = getFilteredOrders(state);
-  const sortField = getSortField(state);
-  const sortDirection = getSortDirection(state);
-  return filteredOrders.sort(SORT_FIELD_MAP[sortField](sortDirection ? -1 : 1));
-};
+export const getSortedOrders = createSelector(
+  [getOrdersData, getFilters],
+  (orders, filters) => {
+    const filteredOrders = getFilteredOrders(orders, filters);
+    const { sortField, isSortAscending } = filters.sort;
+    const comparatorFn = SORT_FIELD_MAP[sortField];
+    return filteredOrders.sort(comparatorFn(isSortAscending ? -1 : 1));
+  }
+);
 
 export const getCurrentPageOrders = createSelector(
   [getSortedOrders, getPageNumber],
@@ -53,6 +56,11 @@ export const getCurrentPageOrders = createSelector(
     return sortedOrders.slice(beginIndex, endIndex);
   }
 );
+
+export const getOrderById = (id) =>
+  createSelector([getOrdersData], (orders) => {
+    return orders.find((order) => order.id === id);
+  });
 
 // Фильтрация
 
@@ -93,16 +101,14 @@ const isAmountInRange = (amountFrom, amountTo) => (amount) => {
   }
 
   if (!amountFrom) {
-    return Number(amount) <= Number(amountTo);
+    return amount <= amountTo;
   }
 
   if (!amountTo) {
-    return Number(amount) >= Number(amountFrom);
+    return amount >= amountFrom;
   }
 
-  return (
-    Number(amount) >= Number(amountFrom) && Number(amount) <= Number(amountTo)
-  );
+  return amount >= amountFrom && amount <= amountTo;
 };
 
 const isContainStatus = (statusValues) => (status) => {
@@ -119,7 +125,7 @@ const isStringOrSubstring = (searchValue) => (customer, orderNumber) => {
   );
 };
 
-const areAllTrusty = (arr) => arr.every(Boolean);
+const areAllTruthy = (arr) => arr.every(Boolean);
 
 // Сортировка
 

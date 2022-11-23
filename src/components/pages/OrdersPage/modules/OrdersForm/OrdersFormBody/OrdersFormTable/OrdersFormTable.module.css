@@ -1,0 +1,32 @@
+.table {
+  flex-shrink: 0;
+  height: fit-content;
+}
+
+.bordered {
+  border-bottom: 0.125rem solid var(--additional-filter-background);
+}
+
+.articleCell {
+  min-width: 6rem;
+}
+
+.nameCell {
+  width: 100%;
+}
+
+.priceCell {
+  min-width: 6rem;
+}
+
+.orderAmount {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer__text {
+  color: var(--text-primary);
+}

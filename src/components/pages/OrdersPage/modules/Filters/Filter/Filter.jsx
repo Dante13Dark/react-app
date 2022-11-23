@@ -2,21 +2,25 @@ import {
   Button,
   BUTTON_SIZE,
   BUTTON_STYLE,
-} from "../../../../shared/Button/Button";
-import { Icon, ICON_MAP } from "../../../../shared/Icon/Icon";
-import { Searchbar } from "../../../../shared/Searchbar/Searchbar";
+} from "../../../../../shared/Button/Button";
+import { Icon, ICON_MAP } from "../../../../../shared/Icon/Icon";
+import { Searchbar } from "../../../../../shared/Searchbar/Searchbar";
 import styles from "./Filter.module.css";
 import { DateFilter } from "../DateFilter/DateFilter";
 import { StatusFilter } from "../StatusFilter/StatusFilter";
 import { AmountFilter } from "../AmountFilter/AmountFilter";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchValue } from "../../model/orders/ordersSelectors";
+import {
+  getOrdersIsLoading,
+  getSearchValue,
+} from "../../../model/orders/ordersSelectors";
 import {
   setSearchValue,
   resetFilters,
   setFilter,
-} from "../../model/ordersFilter/ordersFilterSlice";
+} from "../../../model/ordersFilter/ordersFilterSlice";
+import { clearSelectedIDs } from "../../../model/ordersForm/ordersFormSlice";
 
 const initialState = {
   dateFrom: "",
@@ -29,6 +33,7 @@ const initialState = {
 export const Filter = () => {
   const dispatch = useDispatch();
 
+  const isOrdersLoading = useSelector(getOrdersIsLoading);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const handleToggleAdditionalFilter = () => {
     setIsFilterVisible(!isFilterVisible);
@@ -67,6 +72,7 @@ export const Filter = () => {
   const handleResetFilters = () => {
     setFiltersValues(initialState);
     dispatch(resetFilters());
+    dispatch(clearSelectedIDs());
   };
 
   return (
@@ -103,10 +109,12 @@ export const Filter = () => {
             </Button>
           )}
         </div>
-        <div className={styles.loading}>
-          <Icon name={ICON_MAP.refresh} className={styles.icon} />
-          <span className={styles.text}>Загрузка</span>
-        </div>
+        {isOrdersLoading && (
+          <div className={styles.loading}>
+            <Icon name={ICON_MAP.refresh} className={styles.icon} />
+            <span className={styles.text}>Загрузка</span>
+          </div>
+        )}
       </div>
 
       {isFilterVisible && (

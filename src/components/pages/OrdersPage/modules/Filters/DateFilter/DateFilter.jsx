@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { Input } from "../../../../shared/Input/Input";
+import { Input } from "../../../../../shared/Input/Input";
 import styles from "./DateFilter.module.css";
 
 export const DateFilter = ({
